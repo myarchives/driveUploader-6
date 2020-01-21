@@ -1,6 +1,8 @@
 "use-strict";
 
 const fs = require('fs');
+const util =  require('util');
+const readFile = util.promisify(fs.readFile);
 const readline = require('readline');
 const { google } = require('googleapis');
 
@@ -9,20 +11,19 @@ const app = express();
 const port = process.env.PORT || 5000;
 
 app.use(express.json());
+let status;
 
-app.post('/', async (req, res) => {
+app.post('/', (req, res) => {
     // Load client secrets from a local file.
-    try {
-        const status = await fs.readFile('credentials.json', (err, content) => {
-            if (err) return console.log('Error loading client secret file:', err);
-            // Authorize a client with credentials, then call the Google Drive API.
-            authorize(JSON.parse(content), uploadFile);
-        });
-        console.log(status);
-        res.status(200).send('file is gr8 m8');
-    } catch (err) {
-        console.log(err);
-    }
+    readFile('credentials.json')
+    .then(async content => {
+        // Authorize a client with credentials, then call the Google Drive API.
+        const response = await authorize(JSON.parse(content), uploadFile);
+        res.status(response.status).send(response.data);
+    })
+    .catch(err => {
+        res.status(403).send(err);
+    })
 });
 
 // If modifying these scopes, delete token.json.
@@ -38,17 +39,18 @@ const TOKEN_PATH = 'token.json';
  * @param {Object} credentials The authorization client credentials.
  * @param {function} callback The callback to call with the authorized client.
  */
-function authorize(credentials, callback) {
+async function authorize(credentials, callback) {
   const { client_secret, client_id, redirect_uris } = credentials.installed;
   const oAuth2Client = new google.auth.OAuth2(
       client_id, client_secret, redirect_uris[0]);
-
   // Check if we have previously stored a token.
-  fs.readFile(TOKEN_PATH, (err, token) => {
-    if (err) return getAccessToken(oAuth2Client, callback);
+  try {
+    const token = await readFile(TOKEN_PATH);
     oAuth2Client.setCredentials(JSON.parse(token));
-    callback(oAuth2Client);
-  });
+  } catch (error) {
+    return getAccessToken(oAuth2Client, callback);
+  }
+    return await callback(oAuth2Client);
 }
 
 /**
@@ -82,6 +84,46 @@ function getAccessToken(oAuth2Client, callback) {
   });
 }
 
+async function uploadFile(auth) {
+    let status;
+    var fileMetadata = {
+        'name': 'NLP.docx'
+    };
+    try {
+        const drive = google.drive({version: 'v3', auth});
+        const fileStream = fs.createReadStream('./NLP.docx');
+        var media = {
+            mimeType: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+            body: fileStream
+        };
+        const file = await drive.files.create({
+            resource: fileMetadata,
+            media
+        });
+        const response = {
+                status: file.status,
+                data: file.data
+            }
+        return sendSuccessResponse(response, 'uploadFile');
+    } catch (err) {
+        return sendErrorResponse(err, 'uploadFile');
+    }
+}
+
+app.listen(port, () => {
+    console.log('Endpoints ready.');
+});
+
+function sendSuccessResponse(response, functionName) {
+    console.log(`${functionName} has succeeded with response: ${JSON.stringify(response)}.`)
+    return response;
+}
+
+function sendErrorResponse(error, functionName) {
+    console.log(`${functionName} has failed due to error: ${error}.`)
+    return error;
+}
+
 /**
  * Lists the names and IDs of up to 10 files.
  * @param {google.auth.OAuth2} auth An authorized OAuth2 client.
@@ -104,30 +146,3 @@ function listFiles(auth) {
     }
   });
 }
-
-function uploadFile(auth) {
-    let status;
-    const drive = google.drive({version: 'v3', auth});
-    var fileMetadata = {
-        'name': 'NLP.docx'
-    };
-    var media = {
-        mimeType: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-        body: fs.createReadStream('./NLP.docx')
-    };
-    drive.files.create({
-        resource: fileMetadata,
-        media,
-        fields: 'id',
-    }, function(err, file) {
-        if (err) console.error(err);
-        else {
-            console.log(`file id: ${file.id}`);
-            status = file.status;
-        }
-    });
-    return status;
-}
-app.listen(port, () => {
-    console.log('Ready to post');
-});
