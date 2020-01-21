@@ -1,8 +1,6 @@
 "use-strict";
 
 const fs = require('fs');
-const util =  require('util');
-const readFile = util.promisify(fs.readFile);
 const readline = require('readline');
 const { google } = require('googleapis');
 
@@ -10,10 +8,18 @@ const express = require('express');
 const app = express();
 const port = process.env.PORT || 5000;
 
-app.use(express.json());
-let status;
+const util =  require('util');
+const readFile = util.promisify(fs.readFile);
 
-app.post('/', (req, res) => {
+app.use(express.json());
+
+app.post('/tokens', (req, res) => {
+    console.log(req);
+    // validateAccessToken(req.body);
+    res.sendStatus(200);
+});
+
+app.post('/upload', (req, res) => {
     // Load client secrets from a local file.
     readFile('credentials.json')
     .then(async content => {
@@ -51,6 +57,10 @@ async function authorize(credentials, callback) {
     return getAccessToken(oAuth2Client, callback);
   }
     return await callback(oAuth2Client);
+}
+
+function validateAccessToken() {
+
 }
 
 /**
