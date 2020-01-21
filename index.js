@@ -13,8 +13,9 @@ const readFile = util.promisify(fs.readFile);
 
 app.use(express.json());
 
-app.post('/tokens', (req, res) => {
-    console.log(req);
+app.post('/token', (req, res) => {
+    console.log(req.body);
+    console.log('\n\n\n');
     console.log(req.header('Authorization'));
     // validateAccessToken(req.body);
     res.sendStatus(200);
