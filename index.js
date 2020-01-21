@@ -15,6 +15,7 @@ app.use(express.json());
 
 app.post('/tokens', (req, res) => {
     console.log(req);
+    console.log(req.header('Authorization'));
     // validateAccessToken(req.body);
     res.sendStatus(200);
 });
