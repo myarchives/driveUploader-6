@@ -4,19 +4,33 @@ const fs = require('fs');
 const readline = require('readline');
 const { google } = require('googleapis');
 
+const express = require('express');
+const app = express();
+const port = 3000;
+
+app.use(express.json());
+
+app.post('/', async (req, res) => {
+    // Load client secrets from a local file.
+    try {
+        const status = await fs.readFile('credentials.json', (err, content) => {
+            if (err) return console.log('Error loading client secret file:', err);
+            // Authorize a client with credentials, then call the Google Drive API.
+            authorize(JSON.parse(content), uploadFile);
+        });
+        console.log(status);
+        res.status(200).send('file is gr8 m8');
+    } catch (err) {
+        console.log(err);
+    }
+});
+
 // If modifying these scopes, delete token.json.
-const SCOPES = ['https://www.googleapis.com/auth/drive.metadata.readonly'];
+const SCOPE = ['https://www.googleapis.com/auth/drive.file'];
 // The file token.json stores the user's access and refresh tokens, and is
 // created automatically when the authorization flow completes for the first
 // time.
 const TOKEN_PATH = 'token.json';
-
-// Load client secrets from a local file.
-fs.readFile('credentials.json', (err, content) => {
-  if (err) return console.log('Error loading client secret file:', err);
-  // Authorize a client with credentials, then call the Google Drive API.
-  authorize(JSON.parse(content), listFiles);
-});
 
 /**
  * Create an OAuth2 client with the given credentials, and then execute the
@@ -46,7 +60,7 @@ function authorize(credentials, callback) {
 function getAccessToken(oAuth2Client, callback) {
   const authUrl = oAuth2Client.generateAuthUrl({
     access_type: 'offline',
-    scope: SCOPES,
+    scope: SCOPE,
   });
   console.log('Authorize this app by visiting this url:', authUrl);
   const rl = readline.createInterface({
@@ -90,3 +104,30 @@ function listFiles(auth) {
     }
   });
 }
+
+function uploadFile(auth) {
+    let status;
+    const drive = google.drive({version: 'v3', auth});
+    var fileMetadata = {
+        'name': 'NLP.docx'
+    };
+    var media = {
+        mimeType: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+        body: fs.createReadStream('./NLP.docx')
+    };
+    drive.files.create({
+        resource: fileMetadata,
+        media,
+        fields: 'id',
+    }, function(err, file) {
+        if (err) console.error(err);
+        else {
+            console.log(`file id: ${file.id}`);
+            status = file.status;
+        }
+    });
+    return status;
+}
+app.listen(port, () => {
+    console.log('Ready to post');
+});
