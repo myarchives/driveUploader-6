@@ -4,7 +4,8 @@
   "description": "Upload files from local storage onto Google Drive.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js",
+    // "heroku-build": "cd client && npm install && npm run build"
   },
   "author": "clinton",
   "license": "ISC",
