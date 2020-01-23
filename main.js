@@ -33,7 +33,7 @@ app.use(express.json());
 app.use(cors());
 
 app.get("/", (req, res) => {
-  res.send({ hello: "hi" });
+  res.status(200).sendFile("./index.html");
 });
 
 app.get("/test", (req, res) => {
