@@ -20,9 +20,7 @@
           var data = new FormData();
           data.append("file", fileData);
           console.log(fileData);
-          axios
-            .post("http://localhost:5000/upload", data)
-            .then(res => console.log(res.statusText));
+          axios.post(`/upload`, data).then(res => console.log(res.statusText));
           /*let fileData;
           const fr = new FileReader();
           fr.onload = () => {
