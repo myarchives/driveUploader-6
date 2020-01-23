@@ -9,7 +9,9 @@
   "author": "clinton",
   "license": "ISC",
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^4.17.1",
-    "googleapis": "^39.2.0"
+    "googleapis": "^39.2.0",
+    "multer": "^1.4.2"
   }
 }

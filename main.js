@@ -1,5 +1,7 @@
 "use-strict";
 
+const multer = require("multer");
+const cors = require("cors");
 const fs = require("fs");
 const readline = require("readline");
 const { google } = require("googleapis");
@@ -11,7 +13,28 @@ const port = process.env.PORT || 5000;
 const util = require("util");
 const readFile = util.promisify(fs.readFile);
 
+let fileName;
+let mimeType;
+
+var storage = multer.diskStorage({
+  destination: function(req, file, cb) {
+    cb(null, "./");
+  },
+  filename: function(req, file, cb) {
+    fileName = file.originalname;
+    mimeType = file.mimetype;
+    cb(null, fileName);
+  }
+});
+
+var upload = multer({ storage: storage }).single("file");
+
 app.use(express.json());
+app.use(cors());
+
+app.get("/test", (req, res) => {
+  res.send("Hello");
+});
 
 app.post("/token", (req, res) => {
   console.log(req.body);
@@ -21,6 +44,13 @@ app.post("/token", (req, res) => {
 
 app.post("/upload", (req, res) => {
   // Load client secrets from a local file.
+  upload(req, res, function(err) {
+    if (err instanceof multer.MulterError) {
+      return res.status(500).json(err);
+    } else if (err) {
+      return res.status(500).json(err);
+    }
+  });
   readFile("credentials.json")
     .then(async content => {
       // Authorize a client with credentials, then call the Google Drive API.
@@ -32,11 +62,7 @@ app.post("/upload", (req, res) => {
     });
 });
 
-// If modifying these scopes, delete token.json.
 const SCOPE = ["https://www.googleapis.com/auth/drive.file"];
-// The file token.json stores the user's access and refresh tokens, and is
-// created automatically when the authorization flow completes for the first
-// time.
 const TOKEN_PATH = "token.json";
 
 /**
@@ -61,8 +87,6 @@ async function authorize(credentials, callback) {
   }
   return await callback(oAuth2Client);
 }
-
-function validateAccessToken() {}
 
 /**
  * Get and store new token after prompting for user authorization, and then
@@ -98,14 +122,13 @@ function getAccessToken(oAuth2Client, callback) {
 async function uploadFile(auth) {
   let status;
   var fileMetadata = {
-    name: "NLP.docx"
+    name: fileName
   };
   try {
     const drive = google.drive({ version: "v3", auth });
-    const fileStream = fs.createReadStream("./NLP.docx");
+    const fileStream = fs.createReadStream(`./${fileName}`);
     var media = {
-      mimeType:
-        "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      mimeType: `${mimeType}`,
       body: fileStream
     };
     const file = await drive.files.create({
