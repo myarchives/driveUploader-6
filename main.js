@@ -68,33 +68,39 @@ app.post("/upload", async (req, res) => {
   }
   console.log(1.6);
   try {
-    await readFile(__dirname + "../app/credentials.json")
-      .then(async content => {
-        console.log(2);
-        // Authorize a client with credentials, then call the Google Drive API.
-        const response = await authorize(JSON.parse(content), uploadFile);
-        console.log(3);
-        res.status(response.status).send(response.data);
-      })
-      .catch(err => {
-        res.status(403).send(err);
-      });
+    // Authorize a client with credentials, then call the Google Drive API.
+    const response = await authorize(uploadFile);
+    console.log(3);
+    res.status(response.status).send(response.data);
   } catch (err) {
-    console.log(`Read fail with ${err}`);
+    res.status(403).send(err);
   }
 });
 
 const SCOPE = ["https://www.googleapis.com/auth/drive.file"];
 const TOKEN_PATH = __dirname + "../app/token.json";
-
+const credentials = {
+  installed: {
+    client_id:
+      "633627215888-do5k0oo1tkju71n2pnmubqqas89htslr.apps.googleusercontent.com",
+    project_id: "driveuploader-1579560084775",
+    auth_uri: "https://accounts.google.com/o/oauth2/auth",
+    token_uri: "https://oauth2.googleapis.com/token",
+    auth_provider_x509_cert_url: "https://www.googleapis.com/oauth2/v1/certs",
+    client_secret: "dji6RnVVlj01nbeuQaUAiaiQ",
+    redirect_uris: ["urn:ietf:wg:oauth:2.0:oob", "http://localhost"]
+  }
+};
 /**
  * Create an OAuth2 client with the given credentials, and then execute the
  * given callback function.
  * @param {Object} credentials The authorization client credentials.
  * @param {function} callback The callback to call with the authorized client.
  */
-async function authorize(credentials, callback) {
-  const { client_secret, client_id, redirect_uris } = credentials.installed;
+async function authorize(callback) {
+  const { client_secret, client_id, redirect_uris } = JSON.parse(
+    credentials.installed
+  );
   const oAuth2Client = new google.auth.OAuth2(
     client_id,
     client_secret,
