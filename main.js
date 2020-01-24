@@ -49,18 +49,22 @@ app.post("/token", (req, res) => {
 
 app.post("/upload", (req, res) => {
   // Load client secrets from a local file.
-  console.log(1);
-  upload(req, res, function(err) {
-    console.log(1.1);
-    if (err instanceof multer.MulterError) {
-      console.log(1.2);
-      return res.status(500).json(err);
-    } else if (err) {
-      console.log(1.3);
-      return res.status(500).json(err);
-    }
-    console.log(1.4);
-  });
+  try {
+    console.log(1);
+    upload(req, res, function(err) {
+      console.log(1.1);
+      if (err instanceof multer.MulterError) {
+        console.log(1.2);
+        return res.status(500).json(err);
+      } else if (err) {
+        console.log(1.3);
+        return res.status(500).json(err);
+      }
+      console.log(1.4);
+    });
+  } catch (err) {
+    console.log(`Failed with ${err}`);
+  }
   readFile(__dirname + "/credentials.json")
     .then(async content => {
       console.log(2);
