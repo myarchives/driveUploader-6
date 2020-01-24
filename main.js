@@ -51,7 +51,7 @@ app.post("/upload", async (req, res) => {
   // Load client secrets from a local file.
   try {
     console.log(1);
-    upload(req, res, function(err) {
+    await upload(req, res, function(err) {
       console.log(1.1);
       if (err instanceof multer.MulterError) {
         console.log(1.2);
