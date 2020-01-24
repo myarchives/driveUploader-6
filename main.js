@@ -34,24 +34,24 @@ var upload = multer({ storage: storage }).single("file");
 app.use(express.json());
 app.use(cors());
 
-app.get("/", (req, res) => {
-  res.sendFile(__dirname + "/index.html");
-});
+// app.get("/", (req, res) => {
+//   res.sendFile(__dirname + "/index.html");
+// });
 
-app.get("/test", (req, res) => {
-  res.send("Hello");
-});
+// app.get("/test", (req, res) => {
+//   res.send("Hello");
+// });
 
 app.post("/token", (req, res) => {
   console.log(req.body);
   res.sendStatus(200);
 });
 
-app.post("/upload", (req, res) => {
+app.post("/upload", async (req, res) => {
   // Load client secrets from a local file.
   try {
     console.log(1);
-    upload(req, res, function(err) {
+    await upload(req, res, function(err) {
       console.log(1.1);
       if (err instanceof multer.MulterError) {
         console.log(1.2);
@@ -65,7 +65,7 @@ app.post("/upload", (req, res) => {
   } catch (err) {
     console.log(`Failed with ${err}`);
   }
-  readFile(__dirname + "/credentials.json")
+  readFile(__dirname + "../app/credentials.json")
     .then(async content => {
       console.log(2);
       // Authorize a client with credentials, then call the Google Drive API.
@@ -79,7 +79,7 @@ app.post("/upload", (req, res) => {
 });
 
 const SCOPE = ["https://www.googleapis.com/auth/drive.file"];
-const TOKEN_PATH = __dirname + "token.json";
+const TOKEN_PATH = __dirname + "../app/token.json";
 
 /**
  * Create an OAuth2 client with the given credentials, and then execute the
@@ -142,7 +142,7 @@ async function uploadFile(auth) {
   };
   try {
     const drive = google.drive({ version: "v3", auth });
-    const fileStream = fs.createReadStream(`./${fileName}`);
+    const fileStream = fs.createReadStream(`../app/${fileName}`);
     var media = {
       mimeType: `${mimeType}`,
       body: fileStream
