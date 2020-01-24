@@ -20,7 +20,9 @@
           var data = new FormData();
           data.append("file", fileData);
           console.log(fileData);
-          axios.post(`/upload`, data).then(res => console.log(res.statusText));
+          axios
+            .post(`https://glacial-plateau-02897.herokuapp.com//upload`, data)
+            .then(res => console.log(res.statusText));
           /*let fileData;
           const fr = new FileReader();
           fr.onload = () => {

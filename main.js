@@ -51,7 +51,7 @@ app.post("/upload", async (req, res) => {
   // Load client secrets from a local file.
   try {
     console.log(1);
-    await upload(req, res, function(err) {
+    upload(req, res, function(err) {
       console.log(1.1);
       if (err instanceof multer.MulterError) {
         console.log(1.2);
@@ -62,9 +62,11 @@ app.post("/upload", async (req, res) => {
       }
       console.log(1.4);
     });
+    console.log(1.5);
   } catch (err) {
     console.log(`Failed with ${err}`);
   }
+  console.log(1.6);
   readFile(__dirname + "../app/credentials.json")
     .then(async content => {
       console.log(2);
