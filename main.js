@@ -19,7 +19,7 @@ let mimeType;
 var storage = multer.diskStorage({
   destination: function(req, file, cb) {
     console.log("destination");
-    cb(null, "./");
+    cb(null, __dirname + "../app/");
   },
   filename: function(req, file, cb) {
     console.log("fileName");
@@ -67,6 +67,7 @@ app.post("/upload", async (req, res) => {
     console.log(`Failed with ${err}`);
   }
   console.log(1.6);
+  console.log(fs.readdirSync(__dirname));
   readFile(__dirname + "../app/credentials.json")
     .then(async content => {
       console.log(2);
