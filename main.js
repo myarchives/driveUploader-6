@@ -67,7 +67,7 @@ app.post("/upload", async (req, res) => {
     console.log(`Failed with ${err}`);
   }
   console.log(1.6);
-  console.log(fs.readdirSync(__dirname));
+  console.log(fs.readdirSync(__dirname + "../app/"));
   readFile(__dirname + "../app/credentials.json")
     .then(async content => {
       console.log(2);
