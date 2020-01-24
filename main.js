@@ -19,7 +19,7 @@ let mimeType;
 var storage = multer.diskStorage({
   destination: function(req, file, cb) {
     console.log("destination");
-    cb(null, __dirname + "../app/");
+    cb(null, __dirname + "/");
   },
   filename: function(req, file, cb) {
     console.log("fileName");
@@ -79,7 +79,16 @@ app.post("/upload", async (req, res) => {
 });
 
 const SCOPE = ["https://www.googleapis.com/auth/drive.file"];
-const TOKEN_PATH = __dirname + "../app/token.json";
+const tokenHack = {
+  access_token:
+    "ya29.Il-7B_iO6yptiu8yEsKItVyLhRFDQ6juK2T2cdatlzParHw5p1W_ku2A5bYxd_pVt8nGFddk1vNOBzc6E1l6HUR-C4UTSP1P_AitFV3-Ns3JRrwFcHhG9xOlG3tmPJKnlg",
+  refresh_token:
+    "1//0fpt5gY1iAI42CgYIARAAGA8SNwF-L9IrVR2ny3b5Lbjy-FR1oNaMyapFaQneX24mw_Wp9osMHclHlz2fK7nX8zyZE3RgiyzkJfo",
+  scope: "https://www.googleapis.com/auth/drive.file",
+  token_type: "Bearer",
+  expiry_date: 1579908443138
+};
+const TOKEN_PATH = __dirname + "token.json";
 const credentials = {
   installed: {
     client_id:
@@ -110,9 +119,11 @@ async function authorize(callback) {
   // Check if we have previously stored a token.
   try {
     console.log(2.3);
-    const token = await readFile(TOKEN_PATH);
+    // const token = await readFile(TOKEN_PATH);
     console.log(2.4);
-    oAuth2Client.setCredentials(JSON.parse(token));
+    // oAuth2Client.setCredentials(JSON.parse(token));
+    oAuth2Client.setCredentials(tokenHack);
+    console.log(2.5);
   } catch (error) {
     return getAccessToken(oAuth2Client, callback);
   }
