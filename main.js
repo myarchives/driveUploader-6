@@ -99,9 +99,7 @@ const credentials = {
  * @param {function} callback The callback to call with the authorized client.
  */
 async function authorize(callback) {
-  const { client_secret, client_id, redirect_uris } = JSON.parse(
-    credentials.installed
-  );
+  const { client_secret, client_id, redirect_uris } = credentials.installed;
   console.log(2.1);
   const oAuth2Client = new google.auth.OAuth2(
     client_id,
