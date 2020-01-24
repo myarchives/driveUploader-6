@@ -21,7 +21,7 @@
           data.append("file", fileData);
           console.log(fileData);
           axios
-            .post(`http://localhost:5000/upload`, data)
+            .post(`https://glacial-plateau-02897.herokuapp.com//upload`, data)
             .then(res => console.log(res.statusText));
           /*let fileData;
           const fr = new FileReader();
