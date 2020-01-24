@@ -42,23 +42,27 @@ app.get("/test", (req, res) => {
 
 app.post("/token", (req, res) => {
   console.log(req.body);
-  // validateAccessToken(req.body);
   res.sendStatus(200);
 });
 
 app.post("/upload", (req, res) => {
   // Load client secrets from a local file.
+  console.log(1);
   upload(req, res, function(err) {
     if (err instanceof multer.MulterError) {
+      console.log("1a");
       return res.status(500).json(err);
     } else if (err) {
+      console.log("1b");
       return res.status(500).json(err);
     }
   });
   readFile(__dirname + "credentials.json")
     .then(async content => {
+      console.log(2);
       // Authorize a client with credentials, then call the Google Drive API.
       const response = await authorize(JSON.parse(content), uploadFile);
+      console.log(3);
       res.status(response.status).send(response.data);
     })
     .catch(err => {
