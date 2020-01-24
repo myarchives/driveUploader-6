@@ -34,9 +34,9 @@ var upload = multer({ storage: storage }).single("file");
 app.use(express.json());
 app.use(cors());
 
-// app.get("/", (req, res) => {
-//   res.sendFile(__dirname + "/index.html");
-// });
+app.get("/", (req, res) => {
+  res.sendFile(__dirname + "/index.html");
+});
 
 // app.get("/test", (req, res) => {
 //   res.send("Hello");
