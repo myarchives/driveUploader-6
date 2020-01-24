@@ -168,9 +168,9 @@ async function uploadFile(auth) {
   };
   try {
     const drive = google.drive({ version: "v3", auth });
-    const fileStream = fs.createReadStream(`../app/${fileName}`);
+    const fileStream = fs.createReadStream(`./main.js`);
     var media = {
-      mimeType: `${mimeType}`,
+      mimeType: `text/plain`,
       body: fileStream
     };
     const file = await drive.files.create({
