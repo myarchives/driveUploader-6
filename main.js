@@ -57,7 +57,7 @@ app.post("/upload", (req, res) => {
       return res.status(500).json(err);
     }
   });
-  readFile(__dirname + "credentials.json")
+  readFile(__dirname + "/credentials.json")
     .then(async content => {
       console.log(2);
       // Authorize a client with credentials, then call the Google Drive API.
