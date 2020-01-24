@@ -19,7 +19,7 @@ let mimeType;
 var storage = multer.diskStorage({
   destination: function(req, file, cb) {
     console.log("destination");
-    cb(null, __dirname + "/");
+    cb(null, "./");
   },
   filename: function(req, file, cb) {
     console.log("fileName");
