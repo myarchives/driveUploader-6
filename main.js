@@ -162,7 +162,7 @@ function getAccessToken(oAuth2Client, callback) {
 }
 
 async function uploadFile(auth) {
-  let status;
+  console.log(`fileName: ${fileName}`);
   var fileMetadata = {
     name: fileName
   };
