@@ -64,20 +64,24 @@ app.post("/upload", async (req, res) => {
     });
     console.log(1.5);
   } catch (err) {
-    console.log(`Failed with ${err}`);
+    console.log(`Upload failed with ${err}`);
   }
   console.log(1.6);
-  readFile(__dirname + "../app/credentials.json")
-    .then(async content => {
-      console.log(2);
-      // Authorize a client with credentials, then call the Google Drive API.
-      const response = await authorize(JSON.parse(content), uploadFile);
-      console.log(3);
-      res.status(response.status).send(response.data);
-    })
-    .catch(err => {
-      res.status(403).send(err);
-    });
+  try {
+    readFile(__dirname + "../app/credentials.json")
+      .then(async content => {
+        console.log(2);
+        // Authorize a client with credentials, then call the Google Drive API.
+        const response = await authorize(JSON.parse(content), uploadFile);
+        console.log(3);
+        res.status(response.status).send(response.data);
+      })
+      .catch(err => {
+        res.status(403).send(err);
+      });
+  } catch (err) {
+    console.log(`Read fail with ${err}`);
+  }
 });
 
 const SCOPE = ["https://www.googleapis.com/auth/drive.file"];
