@@ -16,11 +16,6 @@ const readFile = util.promisify(fs.readFile);
 let fileName;
 let mimeType;
 
-process.on("uncaughtException", function(err) {
-  console.error(err.stack); // either logs on console or send to other server via api call.
-  process.exit(1);
-});
-
 var storage = multer.diskStorage({
   destination: function(req, file, cb) {
     connsole.log("destination");
