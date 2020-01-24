@@ -68,7 +68,7 @@ app.post("/upload", async (req, res) => {
   }
   console.log(1.6);
   try {
-    readFile(__dirname + "../app/credentials.json")
+    await readFile(__dirname + "../app/credentials.json")
       .then(async content => {
         console.log(2);
         // Authorize a client with credentials, then call the Google Drive API.
