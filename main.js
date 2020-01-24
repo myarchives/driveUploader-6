@@ -55,7 +55,7 @@ app.post("/upload", (req, res) => {
       return res.status(500).json(err);
     }
   });
-  readFile("credentials.json")
+  readFile(__dirname + "credentials.json")
     .then(async content => {
       // Authorize a client with credentials, then call the Google Drive API.
       const response = await authorize(JSON.parse(content), uploadFile);
@@ -67,7 +67,7 @@ app.post("/upload", (req, res) => {
 });
 
 const SCOPE = ["https://www.googleapis.com/auth/drive.file"];
-const TOKEN_PATH = "token.json";
+const TOKEN_PATH = __dirname + "token.json";
 
 /**
  * Create an OAuth2 client with the given credentials, and then execute the
