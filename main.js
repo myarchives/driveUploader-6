@@ -63,7 +63,6 @@ app.post("/upload", async (req, res) => {
       console.log(1.4);
     });
     console.log(1.5);
-    console.log(fs.readdirSync(__dirname + "../app/"));
   } catch (err) {
     console.log(`Failed with ${err}`);
   }
