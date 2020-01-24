@@ -20,7 +20,7 @@
           var data = new FormData();
           data.append("file", fileData);
           console.log(fileData);
-          axios.post(`/upload`, data).then(res => console.log(res.statusText));
+          //axios.post(`/upload`, data).then(res => console.log(res.statusText));
           /*let fileData;
           const fr = new FileReader();
           fr.onload = () => {
@@ -28,9 +28,9 @@
             console.log(fileData);
           };
           fr.readAsDataURL(fileWrapper);
-          console.log(data);
+          console.log(data);*/
           $.ajax({
-            url: `http://localhost:5000/upload`,
+            url: `/upload`,
             type: "POST",
             data: data,
             processData: false,
@@ -38,7 +38,7 @@
             success: () => {
               console.log("file sent!");
             }
-          });*/
+          });
         });
       });
     </script>
