@@ -18,11 +18,9 @@ let mimeType;
 
 var storage = multer.diskStorage({
   destination: function(req, file, cb) {
-    console.log("destination");
     cb(null, "./");
   },
   filename: function(req, file, cb) {
-    console.log("fileName");
     fileName = file.originalname;
     mimeType = file.mimetype;
     cb(null, fileName);
@@ -51,6 +49,7 @@ app.post("/upload", async (req, res) => {
   // Load client secrets from a local file.
   try {
     console.log(1);
+    console.log("PLEASE: " + __dirname);
     await upload(req, res, function(err) {
       console.log(1.1);
       if (err instanceof multer.MulterError) {
