@@ -69,6 +69,7 @@ app.post("/upload", async (req, res) => {
   console.log(1.6);
   try {
     // Authorize a client with credentials, then call the Google Drive API.
+    console.log(2);
     const response = await authorize(uploadFile);
     console.log(3);
     res.status(response.status).send(response.data);
@@ -101,14 +102,18 @@ async function authorize(callback) {
   const { client_secret, client_id, redirect_uris } = JSON.parse(
     credentials.installed
   );
+  console.log(2.1);
   const oAuth2Client = new google.auth.OAuth2(
     client_id,
     client_secret,
     redirect_uris[0]
   );
+  console.log(2.2);
   // Check if we have previously stored a token.
   try {
+    console.log(2.3);
     const token = await readFile(TOKEN_PATH);
+    console.log(2.4);
     oAuth2Client.setCredentials(JSON.parse(token));
   } catch (error) {
     return getAccessToken(oAuth2Client, callback);
