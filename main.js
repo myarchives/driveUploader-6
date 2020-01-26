@@ -51,6 +51,10 @@ app.post("/upload", async (req, res) => {
   try {
     if (!fs.existsSync(dir)) {
       fs.mkdirSync(dir);
+      console.log("dir made");
+      fs.readdirSync(testFolder).forEach(file => {
+        console.log(file);
+      });
     }
     console.log(1);
     console.log("PLEASE: " + __dirname);
