@@ -18,7 +18,7 @@ let mimeType;
 
 var storage = multer.diskStorage({
   destination: function(req, file, cb) {
-    cb(null, "./");
+    cb(null, __dirname + "/tmp/");
   },
   filename: function(req, file, cb) {
     fileName = file.originalname;
@@ -167,7 +167,7 @@ async function uploadFile(auth) {
   };
   try {
     const drive = google.drive({ version: "v3", auth });
-    const fileStream = fs.createReadStream(`./main.js`);
+    const fileStream = fs.createReadStream(`./tmp/${fileName}`);
     var media = {
       mimeType: `text/plain`,
       body: fileStream
@@ -191,6 +191,7 @@ app.listen(port, () => {
 });
 
 function sendSuccessResponse(response, functionName) {
+  console.log(fileName);
   console.log(
     `${functionName} has succeeded with response: ${JSON.stringify(response)}.`
   );
