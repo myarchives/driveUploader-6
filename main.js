@@ -13,13 +13,13 @@ const port = process.env.PORT || 5000;
 const util = require("util");
 const readFile = util.promisify(fs.readFile);
 
-let fileName;
-let mimeType;
+var fileName;
+var mimeType;
 const dir = "../tmp/tempFiles";
 
 var storage = multer.diskStorage({
   destination: function(req, file, cb) {
-    cb(null, __dirname + dir.substring(2));
+    cb(null, "./");
   },
   filename: function(req, file, cb) {
     fileName = file.originalname;
@@ -49,13 +49,13 @@ app.post("/token", (req, res) => {
 app.post("/upload", async (req, res) => {
   // Load client secrets from a local file.
   try {
-    if (!fs.existsSync(dir)) {
-      fs.mkdirSync(dir);
-      console.log("dir made");
-      fs.readdirSync(__dirname).forEach(file => {
-        console.log(file);
-      });
-    }
+    // if (!fs.existsSync(dir)) {
+    //   fs.mkdirSync(dir);
+    //   console.log("dir made");
+    //   fs.readdirSync(__dirname).forEach(file => {
+    //     console.log(file);
+    //   });
+    // }
     console.log(1);
     console.log("PLEASE: " + __dirname);
     await upload(req, res, function(err) {
@@ -177,7 +177,7 @@ async function uploadFile(auth) {
   };
   try {
     const drive = google.drive({ version: "v3", auth });
-    const fileStream = fs.createReadStream(`./tmp/${fileName}`);
+    const fileStream = fs.createReadStream(`./${fileName}`);
     var media = {
       mimeType: mimeType,
       body: fileStream
