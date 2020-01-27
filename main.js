@@ -19,7 +19,7 @@ const dir = "../tmp/tempFiles";
 
 var storage = multer.diskStorage({
   destination: function(req, file, cb) {
-    cb(null, __dirname + dir.substring(1));
+    cb(null, __dirname + dir.substring(2));
   },
   filename: function(req, file, cb) {
     fileName = file.originalname;
