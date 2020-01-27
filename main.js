@@ -28,7 +28,7 @@ var storage = multer.diskStorage({
   }
 });
 
-var upload = multer({ storage: storage }).single("file");
+var upload = util.promisify(multer({ storage: storage }).single("file"));
 
 app.use(express.json());
 app.use(cors());
@@ -58,20 +58,18 @@ app.post("/upload", async (req, res) => {
     // }
     console.log(1);
     console.log("PLEASE: " + __dirname);
-    await upload(req, res, function(err) {
-      console.log(`req: ${req}`);
-      console.log(`res: ${res}`);
-      console.log(1.1);
-      if (err instanceof multer.MulterError) {
-        console.log(1.2);
-        return res.status(500).json(err);
-      } else if (err) {
-        console.log(1.3);
-        return res.status(500).json(err);
-      }
-      console.log(1.4);
-    });
-    console.log(1.5);
+    await upload(req, res); //, async function(err) {
+    await console.log(1.1);
+    //   if (err instanceof multer.MulterError) {
+    //     console.log(1.2);
+    //     return res.status(500).json(err);
+    //   } else if (err) {
+    //     console.log(1.3);
+    //     return res.status(500).json(err);
+    //   }
+    //   console.log(1.4);
+    // });
+    // console.log(1.5);
   } catch (err) {
     console.log(`Upload failed with ${err}`);
   }
