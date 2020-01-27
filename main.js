@@ -15,7 +15,7 @@ const readFile = util.promisify(fs.readFile);
 
 let fileName;
 let mimeType;
-const dir = "./tempFile";
+const dir = "../tmp/tempFiles";
 
 var storage = multer.diskStorage({
   destination: function(req, file, cb) {
@@ -59,6 +59,8 @@ app.post("/upload", async (req, res) => {
     console.log(1);
     console.log("PLEASE: " + __dirname);
     await upload(req, res, function(err) {
+      console.log(`req: ${req}`);
+      console.log(`res: ${res}`);
       console.log(1.1);
       if (err instanceof multer.MulterError) {
         console.log(1.2);
