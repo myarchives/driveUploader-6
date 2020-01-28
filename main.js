@@ -37,22 +37,28 @@ app.get("/", (req, res) => {
 });
 
 app.post("/token", (req, res) => {
-  ({
-    client_secret,
-    client_id,
-    access_token,
-    refresh_token,
-    expiry_date
-  } = req.body);
+  try {
+    ({
+      client_secret,
+      client_id,
+      access_token,
+      refresh_token,
+      expiry_date
+    } = req.body);
 
-  tokensFromCredentials = {
-    access_token,
-    refresh_token,
-    scope: "https://www.googleapis.com/auth/drive.file",
-    token_type: "Bearer",
-    expiry_date
-  };
-  res.sendStatus(200);
+    tokensFromCredentials = {
+      access_token,
+      refresh_token,
+      scope: "https://www.googleapis.com/auth/drive.file",
+      token_type: "Bearer",
+      expiry_date
+    };
+    sendSuccessResponse(tokensFromCredentials, "/tokens endpoint");
+    res.status(200).send(tokensFromCredentials);
+  } catch (err) {
+    sendErrorResponse(err, "/tokens endpoint");
+    res.send(`Failed to receive tokens: ${err}`);
+  }
 });
 
 app.post("/upload", async (req, res) => {
