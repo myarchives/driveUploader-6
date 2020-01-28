@@ -18,13 +18,8 @@ var mimeType;
 
 var client_id;
 var client_secret;
-// var access_token;
-// var refresh_token;
-// var expiry_date;
 var tokensFromCredentials;
 const redirect_uris = ["urn:ietf:wg:oauth:2.0:oob", "http://localhost"];
-
-const dir = "../tmp/tempFiles";
 
 var storage = multer.diskStorage({
   destination: function(req, file, cb) {
@@ -51,8 +46,6 @@ app.get("/", (req, res) => {
 // });
 
 app.post("/token", (req, res) => {
-  console.log(`req.body: ${JSON.stringify(req.body)}`);
-
   ({
     client_secret,
     client_id,
@@ -61,14 +54,13 @@ app.post("/token", (req, res) => {
     expiry_date
   } = req.body);
 
-  console.log(
-    `secret: ${client_secret}`,
-    `id: ${client_id}`,
-    `at: ${access_token}`,
-    `rt: ${refresh_token}`,
-    `exp: ${expiry_date}`
-  );
-  console.log(access_token);
+  // console.log(
+  //   `secret: ${client_secret}`,
+  //   `id: ${client_id}`,
+  //   `at: ${access_token}`,
+  //   `rt: ${refresh_token}`,
+  //   `exp: ${expiry_date}`
+  // );
   tokensFromCredentials = {
     access_token,
     refresh_token,
@@ -136,7 +128,6 @@ async function authorize(callback) {
   console.log(2.2);
   // Check if we have previously stored a token.
   try {
-    console.log(2.3);
     // const token = await readFile(TOKEN_PATH);
     console.log(2.4);
     // oAuth2Client.setCredentials(JSON.parse(token));
@@ -145,6 +136,7 @@ async function authorize(callback) {
   } catch (error) {
     return getAccessToken(oAuth2Client, callback);
   }
+  console.log(2.6);
   return await callback(oAuth2Client);
 }
 
@@ -185,7 +177,9 @@ async function uploadFile(auth) {
     name: fileName
   };
   try {
+    console.log(2.7);
     const drive = google.drive({ version: "v3", auth });
+    console.log(2.8);
     const fileStream = fs.createReadStream(`./${fileName}`);
     var media = {
       mimeType: mimeType,
