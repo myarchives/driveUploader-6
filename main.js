@@ -20,7 +20,6 @@ const redirect_uris = ["urn:ietf:wg:oauth:2.0:oob", "http://localhost"];
 app.use(express.json());
 app.use(cors());
 
-var upload = util.promisify(multer({ storage: storage }).single("file"));
 var storage = multer.diskStorage({
   destination: function(req, file, cb) {
     cb(null, "./");
@@ -31,6 +30,7 @@ var storage = multer.diskStorage({
     cb(null, fileName);
   }
 });
+var upload = util.promisify(multer({ storage: storage }).single("file"));
 
 app.get("/", (req, res) => {
   res.sendFile(__dirname + "/index.html");
