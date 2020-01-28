@@ -51,7 +51,7 @@ app.get("/", (req, res) => {
 // });
 
 app.post("/token", (req, res) => {
-  console.log(`req.body: ${req.body}`);
+  console.log(`req.body: ${JSON.stringify(req.body)}`);
 
   ({
     client_secret,
