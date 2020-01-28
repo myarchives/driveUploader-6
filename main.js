@@ -15,6 +15,15 @@ const readFile = util.promisify(fs.readFile);
 
 var fileName;
 var mimeType;
+
+var client_id;
+var client_secret;
+// var access_token;
+// var refresh_token;
+// var expiry_date;
+var tokensFromCredentials;
+const redirect_uris = ["urn:ietf:wg:oauth:2.0:oob", "http://localhost"];
+
 const dir = "../tmp/tempFiles";
 
 var storage = multer.diskStorage({
@@ -42,53 +51,45 @@ app.get("/", (req, res) => {
 // });
 
 app.post("/token", (req, res) => {
-  console.log(req.body);
+  ({
+    client_secret,
+    client_id,
+    access_token,
+    refresh_token,
+    expiry_date
+  } = req.body);
+  console.log(access_token);
+  tokensFromCredentials = {
+    access_token,
+    refresh_token,
+    scope: "https://www.googleapis.com/auth/drive.file",
+    token_type: "Bearer",
+    expiry_date
+  };
   res.sendStatus(200);
 });
 
 app.post("/upload", async (req, res) => {
   // Load client secrets from a local file.
   try {
-    // if (!fs.existsSync(dir)) {
-    //   fs.mkdirSync(dir);
-    //   console.log("dir made");
-    //   fs.readdirSync(__dirname).forEach(file => {
-    //     console.log(file);
-    //   });
-    // }
-    console.log(1);
-    console.log("PLEASE: " + __dirname);
-    await upload(req, res); //, async function(err) {
-    await console.log(1.1);
-    //   if (err instanceof multer.MulterError) {
-    //     console.log(1.2);
-    //     return res.status(500).json(err);
-    //   } else if (err) {
-    //     console.log(1.3);
-    //     return res.status(500).json(err);
-    //   }
-    //   console.log(1.4);
-    // });
-    // console.log(1.5);
+    await upload(req, res);
   } catch (err) {
-    console.log(`Upload failed with ${err}`);
+    console.log(`Upload from local failed with ${err}`);
   }
-  console.log(1.6);
   try {
     // Authorize a client with credentials, then call the Google Drive API.
-    console.log(2);
     const response = await authorize(uploadFile);
-    console.log(3);
     res.status(response.status).send(response.data);
   } catch (err) {
-    res.status(403).send(err);
+    res.status(503).send(`Drive upload failed: ${err}`);
   }
 });
 
 const SCOPE = ["https://www.googleapis.com/auth/drive.file"];
 const tokenHack = {
   access_token:
-    "ya29.Il-7B_iO6yptiu8yEsKItVyLhRFDQ6juK2T2cdatlzParHw5p1W_ku2A5bYxd_pVt8nGFddk1vNOBzc6E1l6HUR-C4UTSP1P_AitFV3-Ns3JRrwFcHhG9xOlG3tmPJKnlg",
+    "ya29.ImC7B82qIq4apzPBvUfHsb6uUh2lkaZTvojgsGrfTec7tx2UGR2uJ0sWSJyc2AlPAtWpd0xJ22MLu_rbQk3N-fGoFbGrtGp7XZibgxcQAkeN9yAYmV2LkXqBs1SluEmvBUk",
+  //"ya29.Il-7B_iO6yptiu8yEsKItVyLhRFDQ6juK2T2cdatlzParHw5p1W_ku2A5bYxd_pVt8nGFddk1vNOBzc6E1l6HUR-C4UTSP1P_AitFV3-Ns3JRrwFcHhG9xOlG3tmPJKnlg",
   refresh_token:
     "1//0fpt5gY1iAI42CgYIARAAGA8SNwF-L9IrVR2ny3b5Lbjy-FR1oNaMyapFaQneX24mw_Wp9osMHclHlz2fK7nX8zyZE3RgiyzkJfo",
   scope: "https://www.googleapis.com/auth/drive.file",
@@ -115,7 +116,7 @@ const credentials = {
  * @param {function} callback The callback to call with the authorized client.
  */
 async function authorize(callback) {
-  const { client_secret, client_id, redirect_uris } = credentials.installed;
+  //const { client_secret, client_id, redirect_uris } = credentials.installed;
   console.log(2.1);
   const oAuth2Client = new google.auth.OAuth2(
     client_id,
@@ -129,7 +130,7 @@ async function authorize(callback) {
     // const token = await readFile(TOKEN_PATH);
     console.log(2.4);
     // oAuth2Client.setCredentials(JSON.parse(token));
-    oAuth2Client.setCredentials(tokenHack);
+    oAuth2Client.setCredentials(tokensFromCredentials);
     console.log(2.5);
   } catch (error) {
     return getAccessToken(oAuth2Client, callback);
