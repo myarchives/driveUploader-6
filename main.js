@@ -51,6 +51,8 @@ app.get("/", (req, res) => {
 // });
 
 app.post("/token", (req, res) => {
+  console.log(`req.body: ${req.body}`);
+
   ({
     client_secret,
     client_id,
@@ -58,6 +60,14 @@ app.post("/token", (req, res) => {
     refresh_token,
     expiry_date
   } = req.body);
+
+  console.log(
+    `secret: ${client_secret}`,
+    `id: ${client_id}`,
+    `at: ${access_token}`,
+    `rt: ${refresh_token}`,
+    `exp: ${expiry_date}`
+  );
   console.log(access_token);
   tokensFromCredentials = {
     access_token,
