@@ -5,11 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
+    <!-- <script src="./index.js" type="text/javascript"></script> -->
+    <link rel="stylesheet" href="./index.css" type="text/css" />
   </head>
   <body>
     <form id="form">
-      <input id="fileSelect" type="file" />
-      <button id="uploadConfirm">Upload</button>
+      <input id="fileSelect" type="file" class="buttons" />
+      <button id="uploadConfirm" class="buttons">Upload</button>
     </form>
 
     <script type="text/javascript">
@@ -19,26 +21,7 @@
           var fileData = $("#fileSelect").prop("files")[0];
           var data = new FormData();
           data.append("file", fileData);
-          console.log(fileData);
           axios.post(`/upload`, data).then(res => console.log(res.statusText));
-          /*let fileData;
-          const fr = new FileReader();
-          fr.onload = () => {
-            fileData = fr.result;
-            console.log(fileData);
-          };
-          fr.readAsDataURL(fileWrapper);
-          console.log(data);
-          $.ajax({
-            url: `/upload`,
-            type: "POST",
-            data: data,
-            processData: false,
-            contentType: false,
-            success: () => {
-              console.log("file sent!");
-            } 
-          });*/
         });
       });
     </script>
