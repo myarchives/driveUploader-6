@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
+    <base href="/" />
+    <script src="./index.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="./index.css" type="text/css" />
+  </head>
+  <body>
+    <form id="form">
+      <label for="file-select" class="custom-file-upload buttons"
+        >Choose a file...</label
+      >
+      <span style="display: inline-flex;">
+        <span id="tooltip-wrapper"><span id="tooltip"></span></span>
+        <span id="file-name"></span>
+      </span>
+      <input id="file-select" type="file" />
+      <button id="upload-confirm" class="buttons">Upload</button>
+    </form>
+  </body>
+</html>

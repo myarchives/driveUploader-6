@@ -4,6 +4,7 @@ const multer = require("multer");
 const cors = require("cors");
 const fs = require("fs");
 const { google } = require("googleapis");
+const path = require("path");
 
 const express = require("express");
 const app = express();
@@ -19,6 +20,7 @@ const redirect_uris = ["urn:ietf:wg:oauth:2.0:oob", "http://localhost"];
 
 app.use(express.json());
 app.use(cors());
+app.use(express.static(path.join(__dirname, "public")));
 
 var storage = multer.diskStorage({
   destination: function(req, file, cb) {
