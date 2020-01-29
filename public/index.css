@@ -9,7 +9,7 @@ html {
 
 #file-name {
   display: inline-block;
-  width: 25rem;
+  width: 18rem;
   overflow: hidden;
   text-overflow: ellipsis;
   vertical-align: middle;
@@ -25,7 +25,7 @@ html {
 #tooltip {
   display: block;
   position: relative;
-  width: 20rem;
+  width: 15rem;
   background-color: black;
   color: #fff;
   text-align: center;
