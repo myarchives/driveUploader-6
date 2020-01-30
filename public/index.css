@@ -4,7 +4,8 @@ html {
   line-height: 1.25;
   transform: translateY(-50%);
   position: absolute;
-  top: 25%;
+  top: 35%;
+  padding-left: 50px;
 }
 
 #file-name {
