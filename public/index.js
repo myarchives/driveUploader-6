@@ -6,7 +6,8 @@ $(() => {
   const tooltip = $("#tooltip");
   const fileSelect = $("#file-select");
   const uploadConfirm = $("#upload-confirm");
-  const responseDisplay = $("#response-display");
+  const status = $("#status");
+  const details = $("#details");
 
   fileName.hover(
     function() {
@@ -23,8 +24,8 @@ $(() => {
     } else {
       inputFileName = inputFileName.substr(inputFileName.lastIndexOf("\\") + 1);
     }
-    fileName.html(inputFileName);
-    tooltip.html(inputFileName);
+    fileName.text(inputFileName);
+    tooltip.text(inputFileName);
   });
 
   uploadConfirm.click(event => {
@@ -32,6 +33,9 @@ $(() => {
     var fileData = fileSelect.prop("files")[0];
     var data = new FormData();
     data.append("file", fileData);
-    axios.post(`/upload`, data).then(res => responseDisplay.html(res));
+    axios.post(`/upload`, data).then(res => {
+      status.text(`${res.status + " " + res.statusText}`);
+      details.text(JSON.stringify(res.data));
+    });
   });
 });
