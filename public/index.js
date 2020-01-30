@@ -1,9 +1,12 @@
 $(() => {
+  $(window).scrollTop($(window).height() / 2);
+  $(window).scrollLeft($(window).width() / 2);
   const fileName = $("#file-name");
   const tooltipWrapper = $("#tooltip-wrapper");
   const tooltip = $("#tooltip");
   const fileSelect = $("#file-select");
   const uploadConfirm = $("#upload-confirm");
+  const responseDisplay = $("#response-display");
 
   fileName.hover(
     function() {
@@ -24,13 +27,11 @@ $(() => {
     tooltip.html(inputFileName);
   });
 
-  $(document).ready(() => {
-    uploadConfirm.click(event => {
-      event.preventDefault();
-      var fileData = fileSelect.prop("files")[0];
-      var data = new FormData();
-      data.append("file", fileData);
-      axios.post(`/upload`, data).then(res => console.log(res.statusText));
-    });
+  uploadConfirm.click(event => {
+    event.preventDefault();
+    var fileData = fileSelect.prop("files")[0];
+    var data = new FormData();
+    data.append("file", fileData);
+    axios.post(`/upload`, data).then(res => responseDisplay.html(res));
   });
 });
