@@ -40,25 +40,20 @@ app.get("/", (req, res) => {
 
 app.post("/token", (req, res) => {
   try {
-    // ({
-    //   client_secret,
-    //   client_id,
-    //   access_token,
-    //   refresh_token,
-    //   expiry_date
-    // } = req.body);
+    ({
+      client_secret,
+      client_id,
+      access_token,
+      refresh_token,
+      expiry_date
+    } = req.body);
 
     tokensFromCredentials = {
-      //access_token,
-      access_token:
-        "ya29.ImC7B82qIq4apzPBvUfHsb6uUh2lkaZTvojgsGrfTec7tx2UGR2uJ0sWSJyc2AlPAtWpd0xJ22MLu_rbQk3N-fGoFbGrtGp7XZibgxcQAkeN9yAYmV2LkXqBs1SluEmvBUk",
-      // refresh_token,
-      refresh_token:
-        "1//0fpt5gY1iAI42CgYIARAAGA8SNwF-L9IrVR2ny3b5Lbjy-FR1oNaMyapFaQneX24mw_Wp9osMHclHlz2fK7nX8zyZE3RgiyzkJfo",
+      access_token,
+      refresh_token,
       scope: "https://www.googleapis.com/auth/drive.file",
       token_type: "Bearer",
-      // expiry_date
-      expiry_date: "1579908443138"
+      expiry_date
     };
     sendSuccessResponse(tokensFromCredentials, "/tokens endpoint");
     res.status(200).send(tokensFromCredentials);
@@ -92,10 +87,8 @@ app.post("/upload", async (req, res) => {
  */
 async function authorize(callback) {
   const oAuth2Client = new google.auth.OAuth2(
-    // client_id,
-    "633627215888-do5k0oo1tkju71n2pnmubqqas89htslr.apps.googleusercontent.com",
-    // client_secret,
-    "dji6RnVVlj01nbeuQaUAiaiQ",
+    client_id,
+    client_secret,
     redirect_uris[0]
   );
   oAuth2Client.setCredentials(tokensFromCredentials);
