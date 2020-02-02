@@ -67,7 +67,6 @@ app.post("/upload", async (req, res) => {
     console.log(`Upload from local failed with ${err}`);
   }
   try {
-    console.log(`tokensFromCredentials: ${tokensFromCredentials}`);
     // Authorize a client with credentials, then call the Google Drive API.
     const response = await GoogleDrive.authorize(
       client_id,

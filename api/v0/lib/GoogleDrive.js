@@ -21,7 +21,6 @@ async function authorize(
     clientSecret,
     redirect_uris[0]
   );
-  console.log(`tokens: ${tokens}`);
   oAuth2Client.setCredentials(tokens);
   return await callback(oAuth2Client, fileName, mimeType);
 }
