@@ -41,7 +41,7 @@ async function uploadFile(auth, fileName, mimeType) {
       media
     });
     const response = {
-      status: file.status,
+      status: parseInt(file.status),
       data: file.data
     };
     return sendSuccessResponse(response, "uploadFile");
@@ -58,7 +58,9 @@ function sendSuccessResponse(response, functionName) {
 }
 
 function sendErrorResponse(error, functionName) {
-  console.log(`${functionName} has failed due to error: ${error}.`);
+  console.log(
+    `${functionName} has failed due to error: ${JSON.stringify(error)}.`
+  );
   return error;
 }
 
