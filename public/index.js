@@ -33,9 +33,11 @@ $(() => {
     var fileData = fileSelect.prop("files")[0];
     var data = new FormData();
     data.append("file", fileData);
-    axios.post(`/upload`, data).then(res => {
-      status.text(`${res.status + " " + res.statusText}`);
-      details.text(JSON.stringify(res.data));
-    });
+    axios
+      .post(`https://glacial-plateau-02897.herokuapp.com/upload`, data)
+      .then(res => {
+        status.text(`${res.status + " " + res.statusText}`);
+        details.text(JSON.stringify(res.data));
+      });
   });
 });
