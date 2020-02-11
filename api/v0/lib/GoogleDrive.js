@@ -1,6 +1,7 @@
 const { google } = require("googleapis");
 const fs = require("fs");
 const progress = require("progress-stream");
+const { Transform } = require("stream");
 
 const redirect_uris = ["urn:ietf:wg:oauth:2.0:oob", "http://localhost"];
 /**
@@ -35,7 +36,12 @@ async function uploadFile(auth, fileName, mimeType) {
     var stat = fs.statSync(`./${fileName}`);
     var str = progress({ length: stat.fontsize, time: 100 });
     str.on("progress", p => console.log(p));
-    let fileStream;
+    let fileStream = new Transform({
+      transform(chunk, encoding, callback) {
+        this.push(chunk);
+        callback();
+      }
+    });
     fs.createReadStream(`./${fileName}`)
       .pipe(str)
       .pipe(fileStream);
