@@ -59,8 +59,6 @@ $(() => {
   });
 
   dropzone.addEventListener("drop", e => {
-    e.preventDefault();
-    e.stopPropagation();
     droppedFiles = e.dataTransfer.files[0];
   });
 
