@@ -6,7 +6,6 @@ html {
   position: absolute;
   top: 50%;
   left: 50%;
-  padding-left: 50px;
   overflow: scroll;
 }
 
