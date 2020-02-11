@@ -49,7 +49,6 @@ $(() => {
         ? e.dataTransfer.files
         : e.originalEvent.dataTransfer.files;
     reflectNameChange(files[0].name);
-    uploadFile(files[0]);
   });
 
   uploadConfirm.click(event => {
