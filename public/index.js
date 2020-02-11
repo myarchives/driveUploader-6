@@ -49,7 +49,8 @@ $(() => {
         ? e.dataTransfer.files
         : e.originalEvent.dataTransfer.files;
     reflectNameChange(files[0].name);
-    fileSelect.attr("files", files[0]);
+    console.log(files[0]);
+    fileSelect.prop("files", files);
   });
 
   uploadConfirm.click(event => {
@@ -78,6 +79,7 @@ $(() => {
   const uploadFile = fileData => {
     var data = new FormData();
     data.append("file", fileData);
+    console.log(fileData);
     axios
       .post(`https://glacial-plateau-02897.herokuapp.com/upload`, data)
       .then(res => {

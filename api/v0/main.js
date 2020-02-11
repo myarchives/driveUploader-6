@@ -54,7 +54,7 @@ app.post("/upload", async (req, res) => {
       cb(null, "./");
     },
     filename: function(req, file, cb) {
-      fileName = file.originalname;
+      fileName = file.originalname || file.name;
       mimeType = file.mimetype;
       cb(null, fileName);
     }
