@@ -35,7 +35,10 @@ async function uploadFile(auth, fileName, mimeType) {
     var stat = fs.statSync(`./${fileName}`);
     var str = progress({ length: stat.fontsize, time: 100 });
     str.on("progress", p => console.log(p));
-    const fileStream = fs.createReadStream(`./${fileName}`).pipe(str);
+    let fileStream;
+    fs.createReadStream(`./${fileName}`)
+      .pipe(str)
+      .pipe(fileStream);
     var media = {
       mimeType: mimeType,
       body: fileStream
