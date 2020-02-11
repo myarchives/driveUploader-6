@@ -42,6 +42,8 @@ async function uploadFile(auth, fileName, mimeType) {
         media
       },
       function(err, response, body) {
+        console.log(response);
+        console.log(JSON.stringify(response));
         if (err) {
           console.log(err);
         } else {
@@ -50,8 +52,6 @@ async function uploadFile(auth, fileName, mimeType) {
         }
       }
     );
-    console.log(req);
-    console.log(JSON.stringify(req));
     var q = setInterval(function() {
       console.log("Uploaded: " + req.req.connection.bytesWritten);
     }, 100);
