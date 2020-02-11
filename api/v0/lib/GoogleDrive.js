@@ -30,20 +30,26 @@ async function uploadFile(auth, fileName, mimeType) {
     name: fileName
   };
   try {
+    console.log(1);
     const drive = google.drive({ version: "v3", auth });
+    console.log(2);
     const fileStream = fs.createReadStream(`./${fileName}`);
+    console.log(3);
     var media = {
       mimeType: mimeType,
       body: fileStream
     };
+    console.log(4);
     const file = await drive.files.create({
       resource: fileMetadata,
       media
     });
+    console.log(5);
     const response = {
       status: parseInt(file.status),
       data: file.data
     };
+    console.log(6);
     return sendSuccessResponse(response, "uploadFile");
   } catch (err) {
     return sendErrorResponse(err, "uploadFile");
