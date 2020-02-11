@@ -36,7 +36,7 @@ async function uploadFile(auth, fileName, mimeType) {
       mimeType: mimeType,
       body: fileStream
     };
-    const req = await drive.files.create(
+    const req = await drive.files.insert(
       {
         resource: fileMetadata,
         media
