@@ -1,5 +1,6 @@
 const { google } = require("googleapis");
 const fs = require("fs");
+const progress = require("progress-stream");
 
 const redirect_uris = ["urn:ietf:wg:oauth:2.0:oob", "http://localhost"];
 /**
@@ -31,7 +32,13 @@ async function uploadFile(auth, fileName, mimeType) {
   };
   try {
     const drive = google.drive({ version: "v3", auth });
-    const fileStream = fs.createReadStream(`./${fileName}`);
+    var stat = fs.statSync(`./${fileName}`);
+    var str = progress({ length: stat.fontsize, time: 100 });
+    str.on("progress", p => console.log(p));
+    const fileStream = fs
+      .createReadStream(`./${fileName}`)
+      .pipe(str)
+      .pipe(fs.createWriteStream(output));
     var media = {
       mimeType: mimeType,
       body: fileStream
@@ -52,9 +59,6 @@ async function uploadFile(auth, fileName, mimeType) {
         }
       }
     );
-    var q = setInterval(function() {
-      console.log("Uploaded: " + req.req.connection.bytesWritten);
-    }, 100);
     const response = {
       status: parseInt(req.status),
       data: req.data
