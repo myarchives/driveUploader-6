@@ -2,10 +2,11 @@ html {
   font-family: Arial, sans-serif;
   font-size: 1rem;
   line-height: 1.25;
-  transform: translateY(-50%);
+  /* transform: translateY(-50%); */
   position: absolute;
-  top: 50%;
+  /* top: 50%; */
   padding-left: 50px;
+  overflow: scroll;
 }
 
 #file-name {
