@@ -36,10 +36,23 @@ async function uploadFile(auth, fileName, mimeType) {
       mimeType: mimeType,
       body: fileStream
     };
-    const file = await drive.files.create({
-      resource: fileMetadata,
-      media
-    });
+    const file = await drive.files.create(
+      {
+        resource: fileMetadata,
+        media
+      },
+      function(err, response, body) {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log("finish upload");
+          clearInterval(q);
+        }
+      }
+    );
+    var q = setInterval(function() {
+      console.log("Uploaded: " + req.req.connection.bytesWritten);
+    }, 100);
     const response = {
       status: parseInt(file.status),
       data: file.data
