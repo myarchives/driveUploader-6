@@ -1,6 +1,6 @@
 $(() => {
   $(window).scrollTop($(window).height() / 2);
-  $(window).scrollLeft($(window).width() / 2);
+  $(window).scrollRight($(window).width() / 2);
   const fileName = $("#file-name");
   const tooltipWrapper = $("#tooltip-wrapper");
   const tooltip = $("#tooltip");
