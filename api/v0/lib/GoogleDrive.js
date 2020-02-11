@@ -64,6 +64,7 @@ function sendSuccessResponse(response, functionName) {
 }
 
 function sendErrorResponse(error, functionName) {
+  console.log(error);
   console.log(
     `${functionName} has failed due to error: ${JSON.stringify(error)}.`
   );
