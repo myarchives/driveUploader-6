@@ -16,21 +16,38 @@
   </head>
   <body>
     <form id="form">
-      <label for="file-select" class="custom-file-upload buttons"
-        ><svg
-          class="slds-button__icon slds-button__icon_left"
-          aria-hidden="true"
-        >
-          <use
-            xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#upload"
-          ></use></svg
-        >Choose a file...</label
-      >
-      <span style="display: inline-flex;">
-        <span id="tooltip-wrapper"><span id="tooltip"></span></span>
-        <span id="file-name"></span>
-      </span>
-      <input id="file-select" type="file" />
+      <div class="slds-form-element">
+        <div class="slds-form-element__control">
+          <div class="slds-file-selector">
+            <div class="slds-file-selector__dropzone" id="dropzone">
+              <input
+                type="file"
+                class="slds-file-selector__input slds-assistive-text"
+                id="file-select"
+                aria-describedby="file-upload-drag-and-drop"
+                aria-labelledby="file-selector-primary-label file-selector-secondary-label"
+              />
+              <label for="file-select" class="custom-file-upload buttons"
+                ><svg
+                  class="slds-button__icon slds-button__icon_left"
+                  aria-hidden="true"
+                >
+                  <use
+                    xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#upload"
+                  ></use></svg
+                >Choose a file...</label
+              >
+              <span style="display: inline-flex;">
+                <span id="tooltip-wrapper"
+                  ><span id="tooltip">Or drop files here!</span></span
+                >
+                <span id="file-name">Or drop files here!</span>
+              </span>
+              <!-- <input id="file-select" type="file" /> -->
+            </div>
+          </div>
+        </div>
+      </div>
       <button id="upload-confirm" class="buttons">
         Upload
       </button>

@@ -9,6 +9,10 @@ html {
   overflow: scroll;
 }
 
+#form {
+  display: inline-flex;
+}
+
 #file-name {
   display: inline-block;
   width: 10rem;
