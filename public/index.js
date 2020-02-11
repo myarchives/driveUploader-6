@@ -8,9 +8,7 @@ $(() => {
   const uploadConfirm = $("#upload-confirm");
   const status = $("#status");
   const details = $("#details");
-  const dropzone = document.getElementsByClassName(
-    "slds-file-selector__dropzone"
-  )[0];
+  const dropzone = $("#dropzone");
   const dropFilesDefaultText = "Or drop files here!";
 
   [
@@ -22,7 +20,7 @@ $(() => {
     "dragleave",
     "drop"
   ].forEach(function(event) {
-    dropzone.addEventListener(event, function(e) {
+    dropzone.on(event, function(e) {
       // preventing the unwanted behaviours
       e.preventDefault();
       e.stopPropagation();
@@ -41,6 +39,25 @@ $(() => {
   fileSelect.on("change", function(e) {
     e.preventDefault();
     var inputFileName = String.raw`${$(this).val()}`;
+    reflectNameChange(inputFileName);
+  });
+
+  dropzone.on("drop", e => {
+    var files = e.target.files;
+    if (!files || files.length === 0)
+      files = e.dataTransfer
+        ? e.dataTransfer.files
+        : e.originalEvent.dataTransfer.files;
+    reflectNameChange(files[0].name);
+    uploadFile(files[0]);
+  });
+
+  uploadConfirm.click(event => {
+    event.preventDefault();
+    uploadFile(fileSelect.prop("files")[0]);
+  });
+
+  const reflectNameChange = async inputFileName => {
     if (!inputFileName) {
       inputFileName = dropFilesDefaultText;
     } else {
@@ -56,15 +73,9 @@ $(() => {
     }
     fileName.text(inputFileName);
     tooltip.text(inputFileName);
-  });
+  };
 
-  dropzone.addEventListener("drop", e => {
-    droppedFiles = e.dataTransfer.files[0];
-  });
-
-  uploadConfirm.click(event => {
-    event.preventDefault();
-    var fileData = fileSelect.prop("files")[0];
+  const uploadFile = fileData => {
     var data = new FormData();
     data.append("file", fileData);
     axios
@@ -73,5 +84,5 @@ $(() => {
         status.text(`${res.status + " " + res.statusText}`);
         details.text(JSON.stringify(res.data));
       });
-  });
+  };
 });
