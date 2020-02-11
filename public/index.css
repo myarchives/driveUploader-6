@@ -11,7 +11,7 @@ html {
 
 #file-name {
   display: inline-block;
-  width: 18rem;
+  width: 10rem;
   overflow: hidden;
   text-overflow: ellipsis;
   vertical-align: middle;
@@ -27,7 +27,7 @@ html {
 #tooltip {
   display: block;
   position: relative;
-  width: 15rem;
+  width: 8rem;
   background-color: black;
   color: #fff;
   text-align: center;
