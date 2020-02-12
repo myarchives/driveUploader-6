@@ -2,8 +2,7 @@ const { google } = require("googleapis");
 const fs = require("fs");
 const progress = require("progress-stream");
 const { Transform } = require("stream");
-const io = require("socket.io");
-const server = io.listen(9999);
+const io = require("socket.io")(9999);
 
 const redirect_uris = ["urn:ietf:wg:oauth:2.0:oob", "http://localhost"];
 /**
