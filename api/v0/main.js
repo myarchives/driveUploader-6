@@ -38,6 +38,7 @@ app.post("/jsforceInfo", (req, res) => {
   console.log(req.originalUrl);
   console.log(req.baseUrl);
   console.log(sessionId);
+  res.send("good");
 });
 
 app.post("/token", (req, res) => {
