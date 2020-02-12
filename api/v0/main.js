@@ -14,6 +14,14 @@ app.use(cors());
 app.use(express.static(path.join(__dirname, "../../public")));
 const port = process.env.PORT || 5000;
 
+// app.get("/sse", (req, res) => {
+//   res.status(200).set({
+//     "connection": "keep-alive",
+//     "cache-control": "no-cache",
+//     "content-type": "text/event-stream"
+//   });
+// });
+
 app.get("/", (req, res) => {
   res.sendFile(__dirname + "../../public/index.html");
 });

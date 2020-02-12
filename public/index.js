@@ -10,22 +10,24 @@ $(() => {
   const details = $("#details");
   const dropzone = $("#dropzone");
   const dropFilesDefaultText = "Or drop files here!";
-
-  [
-    "drag",
-    "dragstart",
-    "dragend",
-    "dragover",
-    "dragenter",
-    "dragleave",
-    "drop"
-  ].forEach(function(event) {
-    dropzone.on(event, function(e) {
-      // preventing the unwanted behaviours
-      e.preventDefault();
-      e.stopPropagation();
+  const ioClient = io.connect("https://glacial-plateau-02897.herokuapp.com");
+  ioClient
+    .on("p", p => console.log(p))
+    [
+      ("drag",
+      "dragstart",
+      "dragend",
+      "dragover",
+      "dragenter",
+      "dragleave",
+      "drop")
+    ].forEach(function(event) {
+      dropzone.on(event, function(e) {
+        // preventing the unwanted behaviours
+        e.preventDefault();
+        e.stopPropagation();
+      });
     });
-  });
 
   fileName.hover(
     function() {
@@ -79,7 +81,6 @@ $(() => {
   const uploadFile = fileData => {
     var data = new FormData();
     data.append("file", fileData);
-    console.log(fileData);
     axios
       .post(`https://glacial-plateau-02897.herokuapp.com/upload`, data)
       .then(res => {
