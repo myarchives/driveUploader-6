@@ -2,9 +2,9 @@ const { google } = require("googleapis");
 const fs = require("fs");
 const progress = require("progress-stream");
 const { Transform } = require("stream");
-const io = require("socket.io")(
+const io = require("socket.io-client")(
   "https://glacial-plateau-02897.herokuapp.com:8080",
-  { secure: true }
+  { secure: true, rejectUnauthorized: false }
 );
 io.on("connection", () => {
   console.log("work pls");
