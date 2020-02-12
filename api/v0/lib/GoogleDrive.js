@@ -3,7 +3,8 @@ const fs = require("fs");
 const progress = require("progress-stream");
 const { Transform } = require("stream");
 const io = require("socket.io")(
-  "https://glacial-plateau-02897.herokuapp.com:8080"
+  "https://glacial-plateau-02897.herokuapp.com:8080",
+  { secure: true }
 );
 io.on("connection", () => {
   console.log("work pls");
