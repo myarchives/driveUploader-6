@@ -38,7 +38,7 @@ app.post("/jsforceInfo", (req, res) => {
   console.log(req.originalUrl);
   console.log(req.baseUrl);
   console.log(sessionId);
-  console.log(req.user);
+  console.log(req.ip);
   res.send("good");
 });
 
