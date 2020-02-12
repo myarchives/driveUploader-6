@@ -35,26 +35,33 @@ async function uploadFile(auth, fileName, mimeType) {
   };
   try {
     const drive = google.drive({ version: "v3", auth });
+    console.log(1);
     var stat = fs.statSync(`./${fileName}`);
     var str = progress({ length: stat.size, time: 100 });
+    console.log(2);
     str.on("progress", p => io.emit("p", p));
+    console.log(3);
     let fileStream = new Transform({
       transform(chunk, encoding, callback) {
         this.push(chunk);
         callback();
       }
     });
+    console.log(4);
     fs.createReadStream(`./${fileName}`)
       .pipe(str)
       .pipe(fileStream);
+    console.log(5);
     var media = {
       mimeType: mimeType,
       body: fileStream
     };
+    console.log(6);
     const file = await drive.files.create({
       resource: fileMetadata,
       media
     });
+    console.log(7);
     const response = {
       status: parseInt(file.status),
       data: file.data
