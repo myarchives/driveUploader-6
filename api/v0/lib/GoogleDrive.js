@@ -2,8 +2,11 @@ const { google } = require("googleapis");
 const fs = require("fs");
 const progress = require("progress-stream");
 const { Transform } = require("stream");
-const io = require("socket.io")(9999);
-
+const io = require("socket.io")(8080);
+io.on("connection", () => {
+  console.log("work pls");
+  io.emit("p", null);
+});
 const redirect_uris = ["urn:ietf:wg:oauth:2.0:oob", "http://localhost"];
 /**
  * Create an OAuth2 client with the given credentials, and then execute the
