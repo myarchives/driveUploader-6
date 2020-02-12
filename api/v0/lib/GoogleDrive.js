@@ -2,11 +2,6 @@ const { google } = require("googleapis");
 const fs = require("fs");
 const progress = require("progress-stream");
 const { Transform } = require("stream");
-const io = require("socket.io")(8080);
-io.on("connection", () => {
-  console.log("work pls");
-  io.emit("p", null);
-});
 const redirect_uris = ["urn:ietf:wg:oauth:2.0:oob", "http://localhost"];
 /**
  * Create an OAuth2 client with the given credentials, and then execute the
@@ -43,7 +38,6 @@ async function uploadFile(auth, fileName, mimeType) {
     console.log(2);
     str.on("progress", p => {
       console.log(p);
-      io.emit("p", p);
     });
     console.log(3);
     let fileStream = new Transform({

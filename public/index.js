@@ -10,17 +10,6 @@ $(() => {
   const details = $("#details");
   const dropzone = $("#dropzone");
   const dropFilesDefaultText = "Or drop files here!";
-  const ioClient = io.connect(
-    "https://glacial-plateau-02897.herokuapp.com:8080",
-    {
-      secure: true,
-      rejectUnauthorized: false
-    }
-  );
-  ioClient.on("connect", function() {
-    console.log("Client has connected to the server!");
-  });
-  ioClient.on("p", p => console.log(p));
 
   [
     "drag",
