@@ -16,13 +16,13 @@ $(() => {
   ioClient.on("p", p => console.log(p));
 
   [
-    ("drag",
+    "drag",
     "dragstart",
     "dragend",
     "dragover",
     "dragenter",
     "dragleave",
-    "drop")
+    "drop"
   ].forEach(function(event) {
     dropzone.on(event, function(e) {
       // preventing the unwanted behaviours
