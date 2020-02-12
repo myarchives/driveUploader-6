@@ -40,7 +40,7 @@ async function uploadFile(auth, fileName, mimeType) {
     console.log(2);
     str.on("progress", p => {
       console.log(p);
-      // io.emit("p", p);
+      io.emit("p", p);
     });
     console.log(3);
     let fileStream = new Transform({

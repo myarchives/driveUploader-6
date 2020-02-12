@@ -13,7 +13,7 @@ $(() => {
   const ioClient = io.connect(
     "https://glacial-plateau-02897.herokuapp.com:9999"
   );
-  // ioClient.on("p", p => console.log(p));
+  ioClient.on("p", p => console.log(p));
 
   [
     "drag",
