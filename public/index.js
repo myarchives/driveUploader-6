@@ -10,24 +10,26 @@ $(() => {
   const details = $("#details");
   const dropzone = $("#dropzone");
   const dropFilesDefaultText = "Or drop files here!";
-  const ioClient = io.connect("https://glacial-plateau-02897.herokuapp.com");
-  ioClient
-    .on("p", p => console.log(p))
-    [
-      ("drag",
-      "dragstart",
-      "dragend",
-      "dragover",
-      "dragenter",
-      "dragleave",
-      "drop")
-    ].forEach(function(event) {
-      dropzone.on(event, function(e) {
-        // preventing the unwanted behaviours
-        e.preventDefault();
-        e.stopPropagation();
-      });
+  const ioClient = io.connect(
+    "https://glacial-plateau-02897.herokuapp.com:9999"
+  );
+  ioClient.on("p", p => console.log(p));
+
+  [
+    ("drag",
+    "dragstart",
+    "dragend",
+    "dragover",
+    "dragenter",
+    "dragleave",
+    "drop")
+  ].forEach(function(event) {
+    dropzone.on(event, function(e) {
+      // preventing the unwanted behaviours
+      e.preventDefault();
+      e.stopPropagation();
     });
+  });
 
   fileName.hover(
     function() {
