@@ -38,7 +38,10 @@ async function uploadFile(auth, fileName, mimeType) {
     var stat = fs.statSync(`./${fileName}`);
     var str = progress({ length: stat.size, time: 100 });
     console.log(2);
-    str.on("progress", p => io.emit("p", p));
+    str.on("progress", p => {
+      console.log(2.5);
+      io.emit("p", p);
+    });
     console.log(3);
     let fileStream = new Transform({
       transform(chunk, encoding, callback) {
