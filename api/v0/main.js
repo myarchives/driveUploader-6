@@ -34,6 +34,9 @@ app.post("/jsforceInfo", (req, res) => {
   const url = req.get("host") || req.get("origin");
   const sessionId = req.body.sessionId;
   console.log(url);
+  console.log(req.hostname);
+  console.log(req.originalUrl);
+  console.log(req.baseUrl);
   console.log(sessionId);
 });
 
