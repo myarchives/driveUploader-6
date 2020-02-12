@@ -34,7 +34,8 @@ async function uploadFile(auth, fileName, mimeType) {
   try {
     const drive = google.drive({ version: "v3", auth });
     var stat = fs.statSync(`./${fileName}`);
-    var str = progress({ length: stat.fontsize, time: 100 });
+    var str = progress({ length: stat.size, time: 100 });
+    // var percComp = 0;
     str.on("progress", p => console.log(p));
     let fileStream = new Transform({
       transform(chunk, encoding, callback) {
