@@ -29,6 +29,14 @@ app.get("/", (req, res) => {
 var client_id;
 var client_secret;
 var tokensFromCredentials;
+
+app.post("/jsforceInfo", (req, res) => {
+  const url = req.get("host") || req.get("origin");
+  const sessionId = req.body.sessionId;
+  console.log(url);
+  console.log(sessionId);
+});
+
 app.post("/token", (req, res) => {
   try {
     ({
