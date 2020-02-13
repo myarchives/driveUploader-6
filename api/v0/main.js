@@ -40,8 +40,7 @@ app.post("/jsforceInfo", (req, res) => {
     sessionId
   });
   conn.query("SELECT Id, Name FROM Account LIMIT 1").then(function(res) {
-    // receive resolved result from the promise,
-    // then return another promise for continuing API execution.
+    console.log(res);
     return conn.sobject("Account").create({ Name: "Another Account" });
   });
   res.send("good");
