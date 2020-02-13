@@ -35,15 +35,24 @@ app.post("/jsforceInfo", (req, res) => {
   ({ sessionId, salesforceUrl } = req.body);
   console.log(sessionId);
   console.log(salesforceUrl);
-  const conn = new jsConnect.Connection({
-    instanceUrl: salesforceUrl,
-    sessionId
-  });
+  try {
+    const conn = new jsConnect.Connection({
+      instanceUrl: salesforceUrl,
+      sessionId
+    });
+  } catch (err) {
+    console.log(`log in failed: ${err}`);
+  }
   console.log(1);
-  conn.query("SELECT Id, Name FROM Account LIMIT 1").then(function(res) {
-    console.log(res);
-    return conn.sobject("Account").create({ Name: "Another Account" });
-  });
+  conn
+    .query("SELECT Id, Name FROM Account LIMIT 1")
+    .then(function(res) {
+      console.log(res);
+      return conn.sobject("Account").create({ Name: "Another Account" });
+    })
+    .catch(error => {
+      console.log(`query failed: ${error}`);
+    });
   res.send("good");
 });
 
