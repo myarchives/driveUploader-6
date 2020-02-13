@@ -35,8 +35,9 @@ app.post("/jsforceInfo", (req, res) => {
   ({ sessionId, salesforceUrl } = req.body);
   console.log(sessionId);
   console.log(salesforceUrl);
+  var conn;
   try {
-    const conn = new jsConnect.Connection({
+    conn = new jsConnect.Connection({
       instanceUrl: salesforceUrl,
       sessionId
     });
