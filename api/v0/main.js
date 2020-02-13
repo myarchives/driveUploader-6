@@ -35,6 +35,9 @@ app.post("/jsforceInfo", (req, res) => {
   ({ sessionId, salesforceUrl } = req.body);
   console.log(sessionId);
   console.log(salesforceUrl);
+  // const sessionId =
+  // "00D6g000003s9k!AR4AQG_SKsp91DHJ7C5UUWRR1_.rKSGBwDw5aWSfCyH5iPNYMo_0ANUZozi5r_TRnGTRRE_LZe2tZCwyJnLvvF3jTHd1.3PV";
+  // const salesforceUrl = "https://clin-dev-ed.my.salesforce.com";
   var conn;
   try {
     conn = new jsConnect.Connection({
@@ -46,14 +49,18 @@ app.post("/jsforceInfo", (req, res) => {
   }
   console.log(1);
   conn
-    .query("SELECT Id, Name FROM Account LIMIT 1")
-    .then(function(res) {
-      console.log(res);
-      return conn.sobject("Account").create({ Name: "Another Account" });
-    })
-    .catch(error => {
-      console.log(`query failed: ${error}`);
-    });
+    .sobject("Account")
+    .create({ Name: "Another Account" })
+    .then(() => console.log("well done"))
+    .catch(() => console.log("sike"));
+  // .query("SELECT Id, Name FROM Account LIMIT 1")
+  // .then(function(res) {
+  //   console.log(res);
+  //   return conn.sobject("Account").create({ Name: "Another Account" });
+  // })
+  // .catch(error => {
+  //   console.log(`query failed: ${error}`);
+  // });
   res.send("good");
 });
 
