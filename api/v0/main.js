@@ -39,6 +39,7 @@ app.post("/jsforceInfo", (req, res) => {
     instanceUrl: salesforceUrl,
     sessionId
   });
+  console.log(1);
   conn.query("SELECT Id, Name FROM Account LIMIT 1").then(function(res) {
     console.log(res);
     return conn.sobject("Account").create({ Name: "Another Account" });
