@@ -8,11 +8,12 @@ const multer = require("multer");
 const cors = require("cors");
 const path = require("path");
 const GoogleDrive = require("./lib/GoogleDrive.js");
+const jsConnect = require("jsforce");
 
+const port = process.env.PORT || 5000;
 app.use(express.json());
 app.use(cors());
 app.use(express.static(path.join(__dirname, "../../public")));
-const port = process.env.PORT || 5000;
 
 // app.get("/sse", (req, res) => {
 //   res.status(200).set({
@@ -31,14 +32,18 @@ var client_secret;
 var tokensFromCredentials;
 
 app.post("/jsforceInfo", (req, res) => {
-  const url = req.get("host") || req.get("origin");
-  const sessionId = req.body.sessionId;
-  console.log(url);
-  console.log(req.hostname);
-  console.log(req.originalUrl);
-  console.log(req.baseUrl);
+  ({ sessionId, salesforceUrl } = req.body);
   console.log(sessionId);
-  console.log(req.ip);
+  console.log(salesforceUrl);
+  const conn = new jsConnect.Connection({
+    instanceUrl: salesforceUrl,
+    sessionId
+  });
+  conn.query("SELECT Id, Name FROM Account LIMIT 1").then(function(res) {
+    // receive resolved result from the promise,
+    // then return another promise for continuing API execution.
+    return conn.sobject("Account").create({ Name: "Another Account" });
+  });
   res.send("good");
 });
 
