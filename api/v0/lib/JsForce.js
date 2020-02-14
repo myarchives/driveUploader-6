@@ -15,7 +15,7 @@ async function connect(sessionId, salesforceUrl) {
 function create(file) {
   ({ webViewLink, id, fileExtension } = file);
   connection
-    .sobject(`PLM__Document__c`)
+    .sobject("PLM__Document__c")
     .create({
       Name: "Test Document 1",
       PLMLAW__Item_Revision__c: "a0X6g000000Jl2ZEAS"
@@ -23,7 +23,7 @@ function create(file) {
       //   PLMLAW__File_Extension__c: fileExtension,
       //   PLMLAW__Google_File_Id__c: id
     })
-    .then(() => console.log("well done"))
+    .then(res => console.log("well done\n" + res))
     .catch(err => console.log("sike: " + err));
 }
 
