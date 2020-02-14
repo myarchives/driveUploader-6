@@ -11,21 +11,14 @@ const redirect_uris = ["urn:ietf:wg:oauth:2.0:oob", "http://localhost"];
  * @param {Object} credentials The authorization client credentials.
  * @param {function} callback The callback to call with the authorized client.
  */
-async function authorize(
-  clientId,
-  clientSecret,
-  tokens,
-  fileName,
-  mimeType,
-  callback
-) {
+async function authorize(clientId, clientSecret, tokens, options, callback) {
   const oAuth2Client = new google.auth.OAuth2(
     clientId,
     clientSecret,
     redirect_uris[0]
   );
   oAuth2Client.setCredentials(tokens);
-  return await callback(oAuth2Client, fileName, mimeType);
+  return await callback(oAuth2Client, options);
 }
 
 async function uploadFile(auth, fileName, mimeType) {
@@ -54,7 +47,8 @@ async function uploadFile(auth, fileName, mimeType) {
     };
     const file = await drive.files.create({
       resource: fileMetadata,
-      media
+      media,
+      fields: "*"
     });
     const response = {
       status: parseInt(file.status),

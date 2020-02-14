@@ -1,7 +1,9 @@
 const jsConnect = require("jsforce");
 var connection;
+var namespace;
 
-async function connect(sessionId, salesforceUrl) {
+async function connect(namespace, sessionId, salesforceUrl) {
+  namespace = namespace;
   try {
     connection = new jsConnect.Connection({
       instanceUrl: salesforceUrl,
@@ -12,12 +14,15 @@ async function connect(sessionId, salesforceUrl) {
   }
 }
 
-function create() {
+function create(sobjectName, options) {
   connection
-    .sobject("PLMLAW__Document__c")
+    .sobject(`${namespace}__Document__c`)
     .create({
-      Name: "Test Document",
+      Name: "Test Document 2",
       PLMLAW__Item_Revision__c: "a0V6g000000KFZmEAO"
+      //   PLMLAW__External_Attachment_URL__c: "",
+      //   PLMLAW__File_Extension__c: "",
+      //   PLMLAW__Google_File_Id__c: ""
     })
     .then(() => console.log("well done"))
     .catch(() => console.log("sike"));

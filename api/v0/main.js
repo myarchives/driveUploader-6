@@ -24,7 +24,7 @@ var client_secret;
 var tokensFromCredentials;
 
 app.post("/jsforceInfo", async (req, res) => {
-  ({ sessionId, salesforceUrl } = req.body);
+  ({ namespace, sessionId, salesforceUrl } = req.body);
   console.log(sessionId);
   console.log(salesforceUrl);
   // const sessionId =
@@ -82,13 +82,16 @@ app.post("/upload", async (req, res) => {
     console.log(`Upload from local failed with ${err}`);
   }
   try {
+    options = {
+      fileName: fileName,
+      mimeType: mimeType
+    };
     // Authorize a client with credentials, then call the Google Drive API.
     const response = await GoogleDrive.authorize(
       client_id,
       client_secret,
       tokensFromCredentials,
-      fileName,
-      mimeType,
+      options,
       GoogleDrive.uploadFile
     );
     res.status(response.status).send(response.data);
