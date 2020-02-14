@@ -14,7 +14,7 @@ async function connect(namespace, sessionId, salesforceUrl) {
   }
 }
 
-function create(sobjectName, options) {
+function create() {
   connection
     .sobject(`${namespace}__Document__c`)
     .create({
