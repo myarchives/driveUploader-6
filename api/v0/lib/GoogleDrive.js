@@ -24,7 +24,8 @@ async function authorize(clientId, clientSecret, tokens, options, callback) {
 async function uploadFile(auth, options) {
   var fileMetadata = {
     name: options.fileName,
-    driveId: "0AKvbKuqsABhAUk9PVA"
+    driveId: "0AKvbKuqsABhAUk9PVA", //hard coded drive
+    parents: ["0AKvbKuqsABhAUk9PVA"] // and folder for demo
   };
   try {
     const drive = google.drive({ version: "v3", auth });
