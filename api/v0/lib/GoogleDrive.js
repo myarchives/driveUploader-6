@@ -23,7 +23,8 @@ async function authorize(clientId, clientSecret, tokens, options, callback) {
 
 async function uploadFile(auth, options) {
   var fileMetadata = {
-    name: options.fileName
+    name: options.fileName,
+    driveId: "0AKvbKuqsABhAUk9PVA"
   };
   try {
     const drive = google.drive({ version: "v3", auth });
@@ -48,6 +49,7 @@ async function uploadFile(auth, options) {
     const file = await drive.files.create({
       resource: fileMetadata,
       media,
+      supportsAllDrives: true,
       fields: "id, name, webViewLink, mimeType, fileExtension"
     });
     const response = {
