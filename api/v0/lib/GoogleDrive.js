@@ -48,7 +48,7 @@ async function uploadFile(auth, options) {
     const file = await drive.files.create({
       resource: fileMetadata,
       media,
-      fields: "*"
+      fields: "id,name,exportLinks,mimeType,fileExtension"
     });
     const response = {
       status: parseInt(file.status),

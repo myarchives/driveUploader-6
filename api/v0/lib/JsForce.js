@@ -15,9 +15,9 @@ async function connect(sessionId, salesforceUrl) {
 function create(file) {
   ({ webViewLink, id, fileExtension } = file);
   connection
-    .sobject(`PLM__Document__c`)
+    .sobject(`PLM__Item__c`)
     .create({
-      Name: "Test Document 2",
+      Name: "Test Document 1",
       PLMLAW__Item_Revision__c: "a0V6g000000KFZmEAO",
       PLMLAW__External_Attachment_URL__c: webViewLink,
       PLMLAW__File_Extension__c: fileExtension,
