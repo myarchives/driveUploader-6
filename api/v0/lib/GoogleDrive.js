@@ -21,13 +21,13 @@ async function authorize(clientId, clientSecret, tokens, options, callback) {
   return await callback(oAuth2Client, options);
 }
 
-async function uploadFile(auth, fileName, mimeType) {
+async function uploadFile(auth, options) {
   var fileMetadata = {
-    name: fileName
+    name: options.fileName
   };
   try {
     const drive = google.drive({ version: "v3", auth });
-    var stat = fs.statSync(`./${fileName}`);
+    var stat = fs.statSync(`./${options.fileName}`);
     var str = progress({ length: stat.size, time: 100 });
     str.on("progress", p => {
       console.log(p);
@@ -38,11 +38,11 @@ async function uploadFile(auth, fileName, mimeType) {
         callback();
       }
     });
-    fs.createReadStream(`./${fileName}`)
+    fs.createReadStream(`./${options.fileName}`)
       .pipe(str)
       .pipe(fileStream);
     var media = {
-      mimeType: mimeType,
+      mimeType: options.mimeType,
       body: fileStream
     };
     const file = await drive.files.create({
