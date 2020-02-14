@@ -1,8 +1,6 @@
 "use-strict";
 
 const express = require("express");
-const app = express();
-
 const util = require("util");
 const multer = require("multer");
 const cors = require("cors");
@@ -10,7 +8,9 @@ const path = require("path");
 const GoogleDrive = require("./lib/GoogleDrive.js");
 const { connect } = require("./lib/JsForce.js");
 
+const app = express();
 const port = process.env.PORT || 5000;
+
 app.use(express.json());
 app.use(cors());
 app.use(express.static(path.join(__dirname, "../../public")));
@@ -25,13 +25,7 @@ var tokensFromCredentials;
 
 app.post("/jsforceInfo", async (req, res) => {
   ({ namespace, sessionId, salesforceUrl } = req.body);
-  console.log(sessionId);
-  console.log(salesforceUrl);
-  // const sessionId =
-  // "00D6g000003s9k!AR4AQG_SKsp91DHJ7C5UUWRR1_.rKSGBwDw5aWSfCyH5iPNYMo_0ANUZozi5r_TRnGTRRE_LZe2tZCwyJnLvvF3jTHd1.3PV";
-  // const salesforceUrl = "https://clin-dev-ed.my.salesforce.com";
   await connect(sessionId, salesforceUrl);
-
   sendSuccessResponse({}, "/jsforceInfo endpoint");
   res.status(200).send({ sessionId, salesforceUrl });
 });
@@ -75,7 +69,6 @@ app.post("/upload", async (req, res) => {
     }
   });
   var upload = util.promisify(multer({ storage: storage }).single("file"));
-  // Load client secrets from a local file.
   try {
     await upload(req, res);
   } catch (err) {
@@ -109,7 +102,7 @@ function sendSuccessResponse(response, functionName) {
     Object.entries(response).length === 0 && response.constructor === Object
       ? ""
       : `: ${JSON.stringify(response)}`;
-  console.log(`${functionName} has succeeded with response${logEnding}.`);
+  console.log(`${functionName} has succeeded with a response${logEnding}.`);
   return response;
 }
 

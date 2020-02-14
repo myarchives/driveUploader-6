@@ -21,7 +21,7 @@ $(() => {
     "drop"
   ].forEach(function(event) {
     dropzone.on(event, function(e) {
-      // preventing the unwanted behaviours
+      // preventing unwanted behaviours
       e.preventDefault();
       e.stopPropagation();
     });
@@ -49,7 +49,6 @@ $(() => {
         ? e.dataTransfer.files
         : e.originalEvent.dataTransfer.files;
     reflectNameChange(files[0].name);
-    console.log(files[0]);
     fileSelect.prop("files", files);
   });
 

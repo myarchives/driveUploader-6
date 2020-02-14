@@ -5,10 +5,15 @@ const { Transform } = require("stream");
 const { create } = require("./JsForce.js");
 
 const redirect_uris = ["urn:ietf:wg:oauth:2.0:oob", "http://localhost"];
+
 /**
  * Create an OAuth2 client with the given credentials, and then execute the
  * given callback function.
- * @param {Object} credentials The authorization client credentials.
+ * @param {String} clientId Client ID from Google API console
+ * @param {String} clientSecret Client Secret from Google API console
+ * @param {Object} tokens Acces and Refresh tokens and their expiry
+ * @param {Object} options Specifies how the operation in the callback should be
+ *                 executed in the external file storage
  * @param {function} callback The callback to call with the authorized client.
  */
 async function authorize(clientId, clientSecret, tokens, options, callback) {
@@ -21,6 +26,12 @@ async function authorize(clientId, clientSecret, tokens, options, callback) {
   return await callback(oAuth2Client, options);
 }
 
+/**
+ * Uploads file with an OAuth2 client and then execute communicate the metadata of
+ * the record in the external file storage back to salesforce APEX.
+ * @param {Object} auth OAuth2 client generated from authorizing the client credentials.
+ * @param {Object} options Specifies how the file should be created in the external file storage
+ */
 async function uploadFile(auth, options) {
   var fileMetadata = {
     name: options.fileName,
@@ -32,7 +43,7 @@ async function uploadFile(auth, options) {
     var stat = fs.statSync(`./${options.fileName}`);
     var str = progress({ length: stat.size, time: 100 });
     str.on("progress", p => {
-      console.log(p);
+      console.log(p); // logging for demo
     });
     let fileStream = new Transform({
       transform(chunk, encoding, callback) {
