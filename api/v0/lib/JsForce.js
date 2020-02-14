@@ -20,8 +20,8 @@ function create(file) {
       Name: "Test Document 1",
       PLMLAW__Item_Revision__c: "a0V6g000000KFZmEAO",
       PLMLAW__Document__c__External_Attachment_URL__c: webViewLink,
-      PLMLAW__Document__File_Extension__c: fileExtension,
-      PLMLAW__Google_File_Id__c: id
+      PLMLAW__Document_File_Extension__c: fileExtension,
+      PLMLAW__Document_c_Google_File_Id__c: id
     })
     .then(res => console.log("well done\n" + res))
     .catch(err => console.log("sike: " + err));
