@@ -18,10 +18,10 @@ function create(file) {
     .sobject("PLMLAW__Document__c")
     .create({
       Name: "Test Document 1",
-      PLMLAW__Item_Revision__c: "a0V6g000000KFZmEAO",
-      PLMLAW__Document__c__External_Attachment_URL__c: webViewLink,
-      PLMLAW__Document_File_Extension__c: fileExtension,
-      PLMLAW__Document_c_Google_File_Id__c: id
+      plmlaw__item_revision__c: "a0V6g000000KFZmEAO",
+      plmlaw__external_attachment_url__c: webViewLink,
+      plmlaw__file_extension__c: fileExtension,
+      plmlaw__google_file_id__c: id
     })
     .then(res => console.log("well done\n" + res))
     .catch(err => console.log("sike: " + err));
