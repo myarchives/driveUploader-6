@@ -54,7 +54,7 @@ async function uploadFile(auth, options) {
       status: parseInt(file.status),
       data: file.data
     };
-    await create();
+    await create(file);
     return sendSuccessResponse(response, "uploadFile");
   } catch (err) {
     return sendErrorResponse(err, "uploadFile");
