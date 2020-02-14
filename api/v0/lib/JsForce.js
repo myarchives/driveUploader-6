@@ -24,7 +24,7 @@ function create(file) {
       //   PLMLAW__Google_File_Id__c: id
     })
     .then(() => console.log("well done"))
-    .catch(() => console.log("sike"));
+    .catch(err => console.log("sike: " + err));
 }
 
 module.exports = {
