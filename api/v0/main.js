@@ -8,20 +8,12 @@ const multer = require("multer");
 const cors = require("cors");
 const path = require("path");
 const GoogleDrive = require("./lib/GoogleDrive.js");
-const jsConnect = require("jsforce");
+const { connect } = require("./lib/JsForce.js");
 
 const port = process.env.PORT || 5000;
 app.use(express.json());
 app.use(cors());
 app.use(express.static(path.join(__dirname, "../../public")));
-
-// app.get("/sse", (req, res) => {
-//   res.status(200).set({
-//     "connection": "keep-alive",
-//     "cache-control": "no-cache",
-//     "content-type": "text/event-stream"
-//   });
-// });
 
 app.get("/", (req, res) => {
   res.sendFile(__dirname + "../../public/index.html");
@@ -31,37 +23,17 @@ var client_id;
 var client_secret;
 var tokensFromCredentials;
 
-app.post("/jsforceInfo", (req, res) => {
+app.post("/jsforceInfo", async (req, res) => {
   ({ sessionId, salesforceUrl } = req.body);
   console.log(sessionId);
   console.log(salesforceUrl);
   // const sessionId =
   // "00D6g000003s9k!AR4AQG_SKsp91DHJ7C5UUWRR1_.rKSGBwDw5aWSfCyH5iPNYMo_0ANUZozi5r_TRnGTRRE_LZe2tZCwyJnLvvF3jTHd1.3PV";
   // const salesforceUrl = "https://clin-dev-ed.my.salesforce.com";
-  var conn;
-  try {
-    conn = new jsConnect.Connection({
-      instanceUrl: salesforceUrl,
-      sessionId
-    });
-  } catch (err) {
-    console.log(`log in failed: ${err}`);
-  }
-  console.log(1);
-  conn
-    .sobject("Account")
-    .create({ Name: "Another Account" })
-    .then(() => console.log("well done"))
-    .catch(() => console.log("sike"));
-  // .query("SELECT Id, Name FROM Account LIMIT 1")
-  // .then(function(res) {
-  //   console.log(res);
-  //   return conn.sobject("Account").create({ Name: "Another Account" });
-  // })
-  // .catch(error => {
-  //   console.log(`query failed: ${error}`);
-  // });
-  res.send("good");
+  await connect(sessionId, salesforceUrl);
+
+  sendSuccessResponse({}, "/jsforceInfo endpoint");
+  res.status(200).send({ sessionId, salesforceUrl });
 });
 
 app.post("/token", (req, res) => {
@@ -130,9 +102,11 @@ app.listen(port, () => {
 });
 
 function sendSuccessResponse(response, functionName) {
-  console.log(
-    `${functionName} has succeeded with response: ${JSON.stringify(response)}.`
-  );
+  const logEnding =
+    Object.entries(response).length === 0 && obj.constructor === Object
+      ? ""
+      : `: ${JSON.stringify(response)}`;
+  console.log(`${functionName} has succeeded with response${logEnding}.`);
   return response;
 }
 
