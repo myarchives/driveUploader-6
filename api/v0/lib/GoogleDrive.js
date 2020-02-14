@@ -2,7 +2,7 @@ const { google } = require("googleapis");
 const fs = require("fs");
 const progress = require("progress-stream");
 const { Transform } = require("stream");
-const { create } = require("./lib/JsForce.js");
+const { create } = require("./JsForce.js");
 
 const redirect_uris = ["urn:ietf:wg:oauth:2.0:oob", "http://localhost"];
 /**
