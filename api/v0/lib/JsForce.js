@@ -14,6 +14,11 @@ async function connect(sessionId, salesforceUrl) {
 
 function create(file) {
   ({ name, webViewLink, id, fileExtension } = file);
+  console.log(name)
+  console.log(webViewLink)
+  console.log(id)
+  console.log(fileExtension)
+
   connection
     .sobject("PLMLAW__Document__c")
     .create({
