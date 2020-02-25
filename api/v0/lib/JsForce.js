@@ -23,7 +23,7 @@ function create(file) {
     .sobject("PLMLAW__Document__c")
     .create({
       Name: name,
-      PLMLAW__Item_Revision__c: "a0V6g000000KFZmEAO", //hardcoded just for demo
+      PLMLAW__Item_Revision__c: "a0X6g000000Jl2ZEAS", //hardcoded just for demo
       PLMLAW__External_Attachment_URL__c: webViewLink,
       PLMLAW__File_Extension__c: fileExtension,
       PLMLAW__Google_File_Id__c: id
