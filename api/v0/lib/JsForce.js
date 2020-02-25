@@ -27,6 +27,8 @@ function create(file) {
       PLMLAW__External_Attachment_Download_URL__c: webContentLink,
       PLMLAW__Document_Version_Download__c: webContentLink
     })
+    .then(res => console.log("well done: " + fileExtension))
+    .catch(err => console.log("sike: " + err));
 }
 
 module.exports = {
