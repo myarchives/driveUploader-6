@@ -24,7 +24,7 @@ function create(file) {
       PLMLAW__External_Attachment_URL__c: webViewLink,
       PLMLAW__File_Extension__c: fileExtension,
       PLMLAW__Google_File_Id__c: id,
-      PLMLAW__Document_Version_Download__c: webContentLink
+      PLMLAW__External_Attachment_Download_URL___c: webContentLink
     })
     .then(res => console.log("well done: " + fileExtension))
     .catch(err => console.log("sike: " + err));
