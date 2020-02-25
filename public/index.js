@@ -19,8 +19,8 @@ $(() => {
     "dragenter",
     "dragleave",
     "drop"
-  ].forEach(function(event) {
-    dropzone.on(event, function(e) {
+  ].forEach(function (event) {
+    dropzone.on(event, function (e) {
       // preventing unwanted behaviours
       e.preventDefault();
       e.stopPropagation();
@@ -28,15 +28,15 @@ $(() => {
   });
 
   fileName.hover(
-    function() {
+    function () {
       tooltipWrapper.css("visibility", "visible");
     },
-    function() {
+    function () {
       tooltipWrapper.css("visibility", "hidden");
     }
   );
 
-  fileSelect.on("change", function(e) {
+  fileSelect.on("change", function (e) {
     e.preventDefault();
     var inputFileName = String.raw`${$(this).val()}`;
     reflectNameChange(inputFileName);
@@ -79,7 +79,7 @@ $(() => {
     var data = new FormData();
     data.append("file", fileData);
     axios
-      .post(`https://glacial-plateau-02897.herokuapp.com/upload`, data)
+      .post(`https://whispering-harbor-96042.herokuapp.com/upload`, data)
       .then(res => {
         status.text(`${res.status + " " + res.statusText}`);
         details.text(JSON.stringify(res.data));
