@@ -15,7 +15,7 @@ async function connect(sessionId, salesforceUrl) {
 
 function create(file) {
   ({ name, webViewLink, id, fileExtension, webContentLink } = file);
-
+  console.log(1)
   connection
     .sobject("PLMLAW__Document__c")
     .create({
@@ -29,6 +29,7 @@ function create(file) {
     })
     .then(res => console.log("well done: " + fileExtension))
     .catch(err => console.log("sike: " + err));
+  console.log(2)
 }
 
 module.exports = {
