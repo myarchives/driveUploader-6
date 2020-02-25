@@ -62,7 +62,7 @@ async function uploadFile(auth, options) {
       resource: fileMetadata,
       media,
       supportsAllDrives: true,
-      fields: "id, name, webViewLink, mimeType, fileExtension"
+      fields: "id, name, webViewLink, mimeType, fileExtension, webContentLink"
     });
     const response = {
       status: parseInt(file.status),
