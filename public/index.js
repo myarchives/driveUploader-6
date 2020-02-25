@@ -79,7 +79,7 @@ $(() => {
     var data = new FormData();
     data.append("file", fileData);
     axios
-      .post(`https://whispering-harbor-96042.herokuapp.com/upload`, data)
+      .post(`/upload`, data)
       .then(res => {
         status.text(`${res.status + " " + res.statusText}`);
         details.text(JSON.stringify(res.data));
