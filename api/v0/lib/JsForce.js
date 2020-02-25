@@ -7,6 +7,7 @@ async function connect(sessionId, salesforceUrl) {
       instanceUrl: salesforceUrl,
       sessionId
     });
+    console.log(connection)
   } catch (err) {
     console.log(`log in failed: ${err}`);
   }
