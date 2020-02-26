@@ -23,6 +23,7 @@ function create(file) {
       PLMLAW__File_Extension__c: fileExtension,
       PLMLAW__Google_File_Id__c: id,
       PLMLAW__External_Attachment_Download_URL__c: webContentLink,
+      PLMLAW__Content_Location__c: 'E',
     })
 }
 
