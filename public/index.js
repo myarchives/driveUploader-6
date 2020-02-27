@@ -10,6 +10,11 @@ $(() => {
   const details = $("#details");
   const dropzone = $("#dropzone");
   const dropFilesDefaultText = "Or drop files here!";
+  var socket = io();
+
+  socket.on('progress', (call) => {
+    console.log(call)
+  })
 
   [
     "drag",

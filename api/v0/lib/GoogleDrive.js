@@ -3,6 +3,8 @@ const fs = require("fs");
 const progress = require("progress-stream");
 const { Transform } = require("stream");
 const { create } = require("./JsForce.js");
+const server = require("../main.js")
+const io = require('socket.io')(server);
 
 const redirect_uris = ["urn:ietf:wg:oauth:2.0:oob", "http://localhost"];
 
@@ -44,6 +46,7 @@ async function uploadFile(auth, options) {
     var str = progress({ length: stat.size, time: 100 });
     str.on("progress", p => {
       console.log(p); // logging for demo
+      io.emit('progress', p)
     });
     let fileStream = new Transform({
       transform(chunk, encoding, callback) {

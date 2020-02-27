@@ -59,10 +59,10 @@ app.post("/upload", async (req, res) => {
   var fileName;
   var mimeType;
   var storage = multer.diskStorage({
-    destination: function(req, file, cb) {
+    destination: function (req, file, cb) {
       cb(null, "./");
     },
-    filename: function(req, file, cb) {
+    filename: function (req, file, cb) {
       fileName = file.originalname || file.name;
       mimeType = file.mimetype;
       cb(null, fileName);
@@ -93,7 +93,7 @@ app.post("/upload", async (req, res) => {
   }
 });
 
-app.listen(port, () => {
+const server = app.listen(port, () => {
   console.log("Endpoints ready.");
 });
 
@@ -110,3 +110,5 @@ function sendErrorResponse(error, functionName) {
   console.log(`${functionName} has failed due to error: ${error}.`);
   return error;
 }
+
+module.exports = server;
