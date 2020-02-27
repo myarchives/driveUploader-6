@@ -5,11 +5,12 @@ const util = require("util");
 const multer = require("multer");
 const cors = require("cors");
 const path = require("path");
-const GoogleDrive = require("./lib/GoogleDrive.js");
 const { connect } = require("./lib/JsForce.js");
 
 const app = express();
+module.exports = server = require('http').createServer(app)
 const port = process.env.PORT || 5000;
+const GoogleDrive = require("./lib/GoogleDrive.js");
 
 app.use(express.json());
 app.use(cors());
@@ -93,7 +94,7 @@ app.post("/upload", async (req, res) => {
   }
 });
 
-const server = app.listen(port, () => {
+server.listen(port, () => {
   console.log("Endpoints ready.");
 });
 
@@ -110,5 +111,3 @@ function sendErrorResponse(error, functionName) {
   console.log(`${functionName} has failed due to error: ${error}.`);
   return error;
 }
-
-module.exports = server;
