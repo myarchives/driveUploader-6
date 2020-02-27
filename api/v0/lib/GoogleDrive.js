@@ -50,7 +50,7 @@ async function uploadFile(auth, options) {
     var str = progress({ length: stat.size, time: 100 });
     str.on("progress", p => {
       console.log(p); // logging for demo
-      // io.emit('progress', p)
+      io.emit('progress', p)
     });
     let fileStream = new Transform({
       transform(chunk, encoding, callback) {
