@@ -45,6 +45,7 @@ async function uploadFile(auth, options) {
     var stat = fs.statSync(`./${options.fileName}`);
     var str = progress({ length: stat.size, time: 100 });
     str.on("progress", p => {
+      console.log(`[UPLOAD-PROGRESS] percentage completion: ${p.percentage}`);
       io.emit('progress', p);
     });
     let fileStream = new Transform({
