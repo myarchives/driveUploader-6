@@ -14,13 +14,13 @@ $(() => {
   const dropFilesDefaultText = "Or drop files here!";
   const socket = io();
 
-  socket.on('progress', ({ progress }) => {
-    console.log(progress);
-    // console.log(payload.data);
-    // console.log(payload.progress);
-    // const progressCompletion = parseInt(payload.progress);
-    // progressBar.css('width', parseInt(progressCompletion));
-    // progressBarText.text(`${progressCompletion} Complete`);
+  socket.on('progress', (payload) => {
+    console.log(payload);
+    console.log(payload.data);
+    console.log(payload.progress);
+    const progressCompletion = parseInt(payload.progress);
+    progressBar.css('width', parseInt(progressCompletion));
+    progressBarText.text(`${progressCompletion} Complete`);
   });
 
   [
