@@ -9,14 +9,15 @@ $(() => {
   const status = $("#status");
   const details = $("#details");
   const dropzone = $("#dropzone");
+  const progressBar = $("#progress-bar");
+  const progressBarText = $("#progress-bar-text");
   const dropFilesDefaultText = "Or drop files here!";
   const socket = io();
 
-  socket.on('help', () => {
-    console.log('help')
-  });
-  socket.on('progress', (call) => {
-    console.log(call)
+  socket.on('progress', (progress) => {
+    const progressCompletion = parseInt(progress.progress);
+    progressBar.css('width', parseInt(progressCompletion));
+    progressBarText.text(`${progressCompletion} Complete`);
   });
 
   [
