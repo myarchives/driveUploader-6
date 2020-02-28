@@ -5,7 +5,12 @@ const { Transform } = require("stream");
 const { create } = require("./JsForce.js");
 const server = require("../main.js");
 const io = require('socket.io')(server);
-
+setTimeout(() => {
+  var i = 0;
+  setInterval(() => {
+    if (i <= 100) io.emit('test', ++i);
+  }, 20)
+}, 3000);
 const redirect_uris = ["urn:ietf:wg:oauth:2.0:oob", "http://localhost"];
 
 /**

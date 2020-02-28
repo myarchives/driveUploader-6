@@ -60,10 +60,7 @@
       style="display: inline-block; max-width: 300px;overflow-wrap: break-word"
     ></div>
     <div>
-      <div
-        class="slds-grid slds-grid_align-spread slds-p-bottom_x-small"
-        id="progress-bar-label-id-6"
-      >
+      <div class="slds-grid slds-grid_align-spread slds-p-bottom_x-small">
         <span>Google upload completion:</span>
         <strong id="progress-bar-text">--</strong>
       </div>
@@ -72,7 +69,14 @@
         aria-valuemin="0"
         aria-valuemax="100"
         role="progressbar"
-      ></div>
+      >
+        <span
+          class="slds-progress-bar__value"
+          id="progress-bar"
+          style="width: 0%"
+        >
+        </span>
+      </div>
     </div>
   </body>
 </html>
