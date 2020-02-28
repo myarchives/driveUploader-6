@@ -8,7 +8,7 @@ const path = require("path");
 const { connect } = require("./lib/JsForce.js");
 
 const app = express();
-module.exports = server = require('http').createServer(app)
+module.exports = server = require('http').createServer(app);
 const port = process.env.PORT || 5000;
 const GoogleDrive = require("./lib/GoogleDrive.js");
 

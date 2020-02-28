@@ -15,6 +15,7 @@ $(() => {
   const socket = io();
 
   socket.on('progress', (progress) => {
+    console.log(progress);
     const progressCompletion = parseInt(progress.progress);
     progressBar.css('width', parseInt(progressCompletion));
     progressBarText.text(`${progressCompletion} Complete`);
