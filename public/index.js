@@ -14,7 +14,7 @@ $(() => {
   const dropFilesDefaultText = "Or drop files here!";
   const socket = io();
 
-  socket.on('progress', (payload) => {
+  socket.on('progress', ({ payload }) => {
     console.log(payload);
     console.log(payload.data);
     console.log(payload.progress);
