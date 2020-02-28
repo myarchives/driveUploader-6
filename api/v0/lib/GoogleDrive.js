@@ -43,7 +43,7 @@ async function uploadFile(auth, options) {
   try {
     const drive = google.drive({ version: "v3", auth });
     var stat = fs.statSync(`./${options.fileName}`);
-    var str = progress({ length: stat.size, time: 100 });
+    var str = progress({ length: stat.size, time: 20 });
     str.on("progress", p => {
       console.log(`[UPLOAD-PROGRESS] percentage completion: ${p.percentage}`);
       io.emit('progress', p);
