@@ -16,13 +16,11 @@ $(() => {
 
   socket.on('progress', progress => {
     const percentageCompletion = parseInt(progress.percentage);
-    console.log(percentageCompletion);
     progressBar.css('width', `${parseInt(percentageCompletion)}%`);
     progressBarText.text(`${percentageCompletion}% Complete`);
   });
 
   socket.on('test', p => {
-    console.log(p)
     progressBar.css('width', `${parseInt(p)}%`);
     progressBarText.text(`${p}% Complete`);
   });
