@@ -76,7 +76,9 @@ $(() => {
 
   uploadConfirm.click(event => {
     event.preventDefault();
-    uploadFile(fileSelect.prop("files")[0]);
+    window.parent.$('.modal-body').html('content stuff');
+    window.parent.$('#CatModal').modal('show');
+    // uploadFile(fileSelect.prop("files")[0]);
   });
 
   const reflectNameChange = async inputFileName => {
