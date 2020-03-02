@@ -18,7 +18,7 @@ $(() => {
   socket.on('progress', progress => {
     const percentageCompletion = parseInt(progress.percentage);
     progressBar.css('width', `${parseInt(percentageCompletion)}%`);
-    progressBarText.text(`${percentageCompletion}% Complete`);
+    progressBarText.text(`${percentageCompletion}%`);
   });
 
   socket.on('test', p => {
@@ -57,8 +57,8 @@ $(() => {
     if (inputFileName) {
       uploadConfirm.attr("rel", "modal:open")
       uploadConfirm.removeClass("isDisabled");
-      progressBar.css('width', `${parseInt(percentageCompletion)}%`);
-      progressBarText.text(`${percentageCompletion}% Complete`);
+      progressBar.css('width', `0%`);
+      progressBarText.text(`0% Complete`);
     } else {
       uploadConfirm.addClass("isDisabled");
       uploadConfirm.removeAttr("rel");
