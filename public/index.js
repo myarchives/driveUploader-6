@@ -57,12 +57,12 @@ $(() => {
     if (inputFileName) {
       uploadConfirm.attr("rel", "modal:open")
       uploadConfirm.removeClass("isDisabled");
-      progressBar.css('width', `0%`);
-      progressBarText.text(`0% Complete`);
     } else {
       uploadConfirm.addClass("isDisabled");
       uploadConfirm.removeAttr("rel");
     }
+    progressBar.css('width', `0%`);
+    progressBarText.text(`0% Complete`);
     reflectNameChange(inputFileName);
   });
 
