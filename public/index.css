@@ -6,6 +6,7 @@ html {
   position: absolute;
   top: 50%;
   left: 50%;
+  overflow: hidden;
   width: 100%;
 }
 
@@ -104,7 +105,6 @@ input[type="file"] {
 #upload-confirm {
   background-color: #4bca81;
   color: black;
-  text-decoration: none;
 }
 
 #upload-confirm:hover {
@@ -119,18 +119,4 @@ input[type="file"] {
 
 #progress-container {
   margin: 0 20% 0 20%;
-}
-
-.blocker {
-  overflow: visible;
-}
-
-#upload-text {
-  transform: translate(2%, 65%);
-}
-
-.isDisabled {
-  color: currentColor;
-  cursor: not-allowed;
-  opacity: 0.5;
 }
