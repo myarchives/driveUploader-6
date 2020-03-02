@@ -76,13 +76,6 @@ $(() => {
 
   uploadConfirm.click(event => {
     event.preventDefault();
-    $('#ex1').modal({
-      appendTo: $(window.parent.document).find('body'),
-      overlayCss: { backgroundColor: "#333" }, // Optional overlay style
-      overlayClose: true,
-    });
-    // Set overlay's width
-    $(window.parent.document).find('#ex1').css('width', '100%');
     uploadFile(fileSelect.prop("files")[0]);
   });
 
