@@ -76,8 +76,6 @@ $(() => {
 
   uploadConfirm.click(event => {
     event.preventDefault();
-    window.parent.$('.modal-body').html('content stuff');
-    window.parent.$('#CatModal').modal('show');
     // uploadFile(fileSelect.prop("files")[0]);
   });
 
