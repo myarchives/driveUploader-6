@@ -76,7 +76,7 @@ $(() => {
 
   uploadConfirm.click(event => {
     event.preventDefault();
-    window.parent.$("#progress-modal").css('visibility', 'visible')
+    window.parent.$("#progress-modal").css('background-color', 'red')
     uploadFile(fileSelect.prop("files")[0]);
   });
 
