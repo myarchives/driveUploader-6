@@ -6,11 +6,12 @@ html {
   position: absolute;
   top: 50%;
   left: 50%;
-  overflow: hidden;
   width: 100%;
 }
 
-.slds-form-element, .slds-file-selector, #dropzone {
+.slds-form-element,
+.slds-file-selector,
+#dropzone {
   width: -webkit-fill-available;
 }
 
@@ -100,15 +101,16 @@ input[type="file"] {
   background-color: #205fb2;
 }
 
+#upload-confirm {
+  background-color: #4bca81;
+  color: black;
+  text-decoration: none;
+}
+
 #upload-confirm:hover {
   box-shadow: 0px 0px 0.2rem 0.2rem rgba(55, 132, 75, 0.5);
   background-color: #37844b;
   color: white;
-}
-
-#upload-confirm {
-  background-color: #4bca81;
-  color: black;
 }
 
 #upload-confirm:focus {
@@ -117,4 +119,19 @@ input[type="file"] {
 
 #progress-container {
   visibility: hidden;
+}
+
+.blocker {
+  overflow: visible;
+}
+
+#upload-text {
+  transform: translate(2%, 65%);
+}
+
+.isDisabled {
+  color: currentColor;
+  cursor: not-allowed;
+  opacity: 0.5;
+  text-decoration: none;
 }

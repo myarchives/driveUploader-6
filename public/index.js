@@ -55,6 +55,13 @@ $(() => {
   fileSelect.on("change", function (e) {
     e.preventDefault();
     var inputFileName = String.raw`${$(this).val()}`;
+    if (inputFileName) {
+      uploadConfirm.attr("rel", "modal:open")
+      uploadConfirm.removeClass("isDisabled");
+    } else {
+      uploadConfirm.addClass("isDisabled");
+      uploadConfirm.removeAttr("rel");
+    }
     reflectNameChange(inputFileName);
   });
 
@@ -71,7 +78,6 @@ $(() => {
   uploadConfirm.click(event => {
     event.preventDefault();
     uploadFile(fileSelect.prop("files")[0]);
-    progressContainer.css('visibility', 'visible');
   });
 
   const reflectNameChange = async inputFileName => {
