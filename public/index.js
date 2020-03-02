@@ -11,6 +11,8 @@ $(() => {
   const dropzone = $("#dropzone");
   const progressBar = $("#progress-bar");
   const progressBarText = $("#progress-bar-text");
+  const progressContainer = $("#progress-container");
+
   const dropFilesDefaultText = "Or drop files here!";
   const socket = io();
 
@@ -69,6 +71,7 @@ $(() => {
   uploadConfirm.click(event => {
     event.preventDefault();
     uploadFile(fileSelect.prop("files")[0]);
+    progressContainer.css('visibility', 'visible');
   });
 
   const reflectNameChange = async inputFileName => {

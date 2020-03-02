@@ -7,15 +7,33 @@ html {
   top: 50%;
   left: 50%;
   overflow: hidden;
+  width: 100%;
+}
+
+.slds-form-element, .slds-file-selector, #dropzone {
+  width: -webkit-fill-available;
+}
+
+#dropzone {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.break {
+  flex-basis: 100%;
+  height: 0;
 }
 
 #form {
   display: inline-flex;
+  width: 100%;
+  justify-content: center;
 }
 
 #file-name {
-  display: inline-block;
-  width: 10rem;
+  display: block;
+  width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
   vertical-align: middle;
@@ -69,7 +87,7 @@ input[type="file"] {
 }
 
 .custom-file-upload {
-  display: inline-block;
+  display: block;
   background-color: #0070d2;
 }
 
@@ -95,4 +113,8 @@ input[type="file"] {
 
 #upload-confirm:focus {
   background-color: #37844b;
+}
+
+#progress-container {
+  visibility: hidden;
 }
