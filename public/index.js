@@ -57,6 +57,8 @@ $(() => {
     if (inputFileName) {
       uploadConfirm.attr("rel", "modal:open")
       uploadConfirm.removeClass("isDisabled");
+      progressBar.css('width', `${parseInt(percentageCompletion)}%`);
+      progressBarText.text(`${percentageCompletion}% Complete`);
     } else {
       uploadConfirm.addClass("isDisabled");
       uploadConfirm.removeAttr("rel");
@@ -76,7 +78,7 @@ $(() => {
 
   uploadConfirm.click(event => {
     event.preventDefault();
-    // uploadFile(fileSelect.prop("files")[0]);
+    uploadFile(fileSelect.prop("files")[0]);
   });
 
   const reflectNameChange = async inputFileName => {
