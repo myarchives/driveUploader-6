@@ -22,7 +22,7 @@ async function setup() {
     "SELECT NamespacePrefix FROM ApexClass WHERE Name = 'CloudStorageService' LIMIT 1"
   ).then(res => {
     nameSpace = res.NamespacePrefix
-    console.log(nameSpace);
+    console.log(res);
   }).catch(err => {
     console.log(`error setting up: ${err}`);
   })
