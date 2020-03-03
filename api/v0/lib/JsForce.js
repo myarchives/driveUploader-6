@@ -19,9 +19,9 @@ async function credentialsCheck() { }
 async function setup() {
   credentialsCheck();
   connection.query(
-    "SELECT NamespacePrefix FROM ApexClass WHERE Name =:'CloudStorageService'"
+    "SELECT NamespacePrefix FROM ApexClass WHERE Name = 'CloudStorageService' LIMIT 1"
   ).then(res => {
-    nameSpace = res.NamespacePrefix
+    nameSpace = res[0].NamespacePrefix
     console.log(nameSpace);
   }).catch(err => {
     console.log(`error setting up: ${err}`);
