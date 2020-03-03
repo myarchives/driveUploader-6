@@ -9,6 +9,7 @@ async function connect(sessionId, salesforceUrl) {
       instanceUrl: salesforceUrl,
       sessionId
     });
+    revId = revId;
     setup();
   } catch (err) {
     console.log(`Log in failed: ${err}`);
@@ -23,7 +24,6 @@ async function setup() {
     "SELECT NamespacePrefix FROM ApexClass WHERE Name = 'CloudStorageService' LIMIT 1"
   ).then(res => {
     nameSpace = res.records[0].NamespacePrefix
-    console.log(nameSpace);
   }).catch(err => {
     console.log(`error setting up: ${err}`);
   })
@@ -31,7 +31,6 @@ async function setup() {
 
 function create(file) {
   ({ name, webViewLink, id, fileExtension, webContentLink } = file);
-  revId = "a0V6g000000KFZmEAO"
   const newAttachment = {
     "Item_Revision__c": revId,
     "External_Attachment_URL__c": webViewLink,

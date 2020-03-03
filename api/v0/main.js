@@ -25,8 +25,9 @@ var client_secret;
 var tokensFromCredentials;
 
 app.post("/jsforceInfo", async (req, res) => {
-  ({ namespace, sessionId, salesforceUrl } = req.body);
-  await connect(sessionId, salesforceUrl);
+  ({ sessionId, salesforceUrl, revId } = req.body);
+  console.log(`revid: ${revId}`);
+  await connect(sessionId, salesforceUrl, revId);
   sendSuccessResponse({}, "/jsforceInfo endpoint");
   res.status(200).send({ sessionId, salesforceUrl });
 });
