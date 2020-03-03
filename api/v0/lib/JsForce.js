@@ -1,5 +1,6 @@
 const jsConnect = require("jsforce");
 var connection;
+var nameSpace;
 
 async function connect(sessionId, salesforceUrl) {
   try {
@@ -7,9 +8,24 @@ async function connect(sessionId, salesforceUrl) {
       instanceUrl: salesforceUrl,
       sessionId
     });
+    setup();
   } catch (err) {
     console.log(`Log in failed: ${err}`);
   }
+}
+
+async function credentialsCheck() { }
+
+async function setup() {
+  credentialsCheck();
+  connection.query(
+    "SELECT NamespacePrefix FROM ApexClass WHERE Name =:'CloudStorageService'"
+  ).then(res => {
+    nameSpace = res.NamespacePrefix
+    console.log(nameSpace);
+  }).catch(err => {
+    console.log(`error setting up: ${err}`);
+  })
 }
 
 function create(file) {
