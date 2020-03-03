@@ -1,6 +1,7 @@
 const jsConnect = require("jsforce");
 var connection;
 var nameSpace;
+var revId;
 
 async function connect(sessionId, salesforceUrl) {
   try {
@@ -21,8 +22,8 @@ async function setup() {
   connection.query(
     "SELECT NamespacePrefix FROM ApexClass WHERE Name = 'CloudStorageService' LIMIT 1"
   ).then(res => {
-    nameSpace = res.NamespacePrefix
-    console.log(res);
+    nameSpace = res.records[0].NamespacePrefix
+    console.log(nameSpace);
   }).catch(err => {
     console.log(`error setting up: ${err}`);
   })
@@ -30,16 +31,27 @@ async function setup() {
 
 function create(file) {
   ({ name, webViewLink, id, fileExtension, webContentLink } = file);
+  revId = "a0V6g000000KFZmEAO"
+  const newAttachment = {
+    "Item_Revision__c": revId,
+    "External_Attachment_URL__c": webViewLink,
+    "File_Extension__c": fileExtension,
+    "Google_File_Id__c": id,
+    "External_Attachment_Download_URL__c": webContentLink,
+    "Content_Location__c": 'E'
+  };
+
+  for (key in newAttachment) {
+    Object.defineProperty(newAttachment, `${nameSpace}__${key}`,
+      Object.getOwnPropertyDescriptor(newAttachment, key));
+    delete newAttachment[key]
+  };
+
   connection
-    .sobject("PLMLAW__Document__c")
+    .sobject(`${nameSpace}__Document__c`)
     .create({
       Name: name,
-      PLMLAW__Item_Revision__c: "a0V6g000000KFZmEAO", //hardcoded just for demo
-      PLMLAW__External_Attachment_URL__c: webViewLink,
-      PLMLAW__File_Extension__c: fileExtension,
-      PLMLAW__Google_File_Id__c: id,
-      PLMLAW__External_Attachment_Download_URL__c: webContentLink,
-      PLMLAW__Content_Location__c: 'E',
+      ...newAttachment
     })
 }
 
