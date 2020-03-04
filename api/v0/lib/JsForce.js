@@ -9,6 +9,7 @@ async function connect(sessionId, salesforceUrl, revId) {
       instanceUrl: salesforceUrl,
       sessionId
     });
+    console.log(`assigning with ${revId}`)
     revId = revId;
     setup();
   } catch (err) {
@@ -16,7 +17,7 @@ async function connect(sessionId, salesforceUrl, revId) {
   }
 }
 
-async function credentialsCheck() { console.log(revId) }
+async function credentialsCheck() { console.log(`assigned: ${revId}`) }
 
 async function setup() {
   credentialsCheck();
