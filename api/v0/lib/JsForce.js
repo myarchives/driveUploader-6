@@ -1,7 +1,7 @@
 const jsConnect = require("jsforce");
 var connection;
 var nameSpace;
-var revId;
+var revisionId;
 
 async function connect(sessionId, salesforceUrl, revId) {
   try {
@@ -9,15 +9,14 @@ async function connect(sessionId, salesforceUrl, revId) {
       instanceUrl: salesforceUrl,
       sessionId
     });
-    console.log(`assigning with ${revId}`)
-    revId = revId;
+    revisionId = revId;
     setup();
   } catch (err) {
     console.log(`Log in failed: ${err}`);
   }
 }
 
-async function credentialsCheck() { console.log(`assigned: ${revId}`) }
+async function credentialsCheck() { }
 
 async function setup() {
   credentialsCheck();
@@ -33,7 +32,7 @@ async function setup() {
 function create(file) {
   ({ name, webViewLink, id, fileExtension, webContentLink } = file);
   const newAttachment = {
-    "Item_Revision__c": revId,
+    "Item_Revision__c": revisionId,
     "External_Attachment_URL__c": webViewLink,
     "File_Extension__c": fileExtension,
     "Google_File_Id__c": id,
