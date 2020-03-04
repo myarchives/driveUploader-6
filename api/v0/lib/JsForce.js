@@ -3,7 +3,7 @@ var connection;
 var nameSpace;
 var revId;
 
-async function connect(sessionId, salesforceUrl) {
+async function connect(sessionId, salesforceUrl, revId) {
   try {
     connection = new jsConnect.Connection({
       instanceUrl: salesforceUrl,
