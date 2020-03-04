@@ -38,7 +38,6 @@ html {
   width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
-  vertical-align: middle;
   z-index: 2;
 }
 

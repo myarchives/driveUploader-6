@@ -56,9 +56,6 @@ function create(file) {
       Name: name,
       ...newAttachment
     })
-    .then(r => console.log(`success: ${r}`))
-    .catch(r => console.log(`failure: ${r}`))
-
 }
 
 module.exports = {
