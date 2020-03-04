@@ -16,7 +16,7 @@ async function connect(sessionId, salesforceUrl, revId) {
   }
 }
 
-async function credentialsCheck() { }
+async function credentialsCheck() { console.log(revId) }
 
 async function setup() {
   credentialsCheck();
