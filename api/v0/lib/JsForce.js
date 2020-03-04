@@ -46,14 +46,18 @@ function create(file) {
     delete newAttachment[key]
   };
 
+  for (key in newAttachment) {
+    console.log(`key: ${key}\t value: ${newAttachment[key]}`)
+  };
+
   connection
     .sobject(`${nameSpace}__Document__c`)
     .create({
       Name: name,
       ...newAttachment
     })
-    .then(r => console.log(r))
-    .catch(r => console.log(r))
+    .then(r => console.log(`success: ${r}`))
+    .catch(r => console.log(`failure: ${r}`))
 
 }
 
