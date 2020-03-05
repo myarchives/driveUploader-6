@@ -33,7 +33,7 @@ app.post("/revId", async (req, res) => {
 
 app.post("/jsforceInfo", async (req, res) => {
   ({ sessionId, salesforceUrl } = req.body);
-  await connect(sessionId, salesforceUrl, revId);
+  await connect(sessionId, salesforceUrl);
   sendSuccessResponse({}, "/jsforceInfo endpoint");
   res.status(200).send({ sessionId, salesforceUrl });
 })
