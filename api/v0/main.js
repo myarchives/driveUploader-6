@@ -5,7 +5,7 @@ const util = require("util");
 const multer = require("multer");
 const cors = require("cors");
 const path = require("path");
-const { connect } = require("./lib/JsForce.js");
+const { connect, updateRevId } = require("./lib/JsForce.js");
 
 const app = express();
 module.exports = server = require('http').createServer(app);
@@ -24,12 +24,19 @@ var client_id;
 var client_secret;
 var tokensFromCredentials;
 
+app.post("/revId", async (req, res) => {
+  ({ revId } = req.body);
+  updateRevId(revId);
+  sendSuccessResponse({ revId }, '/revId endpoint')
+  res.status(200).send({ revId })
+});
+
 app.post("/jsforceInfo", async (req, res) => {
-  ({ sessionId, salesforceUrl, revId } = req.body);
+  ({ sessionId, salesforceUrl } = req.body);
   await connect(sessionId, salesforceUrl, revId);
   sendSuccessResponse({}, "/jsforceInfo endpoint");
   res.status(200).send({ sessionId, salesforceUrl });
-});
+})
 
 app.post("/token", (req, res) => {
   try {

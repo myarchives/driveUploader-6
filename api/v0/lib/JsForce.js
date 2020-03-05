@@ -9,11 +9,14 @@ async function connect(sessionId, salesforceUrl, revId) {
       instanceUrl: salesforceUrl,
       sessionId
     });
-    revisionId = revId;
     setup();
   } catch (err) {
     console.log(`Log in failed: ${err}`);
   }
+}
+
+async function updateRevId(revId) {
+  revisionId = revId;
 }
 
 async function credentialsCheck() { }
@@ -60,5 +63,6 @@ function create(file) {
 
 module.exports = {
   connect,
-  create
+  create,
+  updateRevId
 };
