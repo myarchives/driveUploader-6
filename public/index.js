@@ -36,7 +36,6 @@ $(() => {
     "drop"
   ].forEach(function (event) {
     dropzone.on(event, function (e) {
-      // preventing unwanted behaviours
       e.preventDefault();
       e.stopPropagation();
     });
